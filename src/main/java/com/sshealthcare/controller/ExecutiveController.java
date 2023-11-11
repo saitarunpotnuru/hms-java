@@ -1,7 +1,10 @@
 package com.sshealthcare.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,8 @@ public class ExecutiveController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserService userService;
+	
+	//adding executive
 	@PostMapping("/add")
 	
 	public Executive inseExecutive(@RequestBody Executive executive) {
@@ -35,6 +40,13 @@ public class ExecutiveController {
 		executive.setUser(user);
 		return executiveService.insert(executive);
 		
+	}
+	
+	//get executive
+	
+	@GetMapping("/get")
+	public List<Executive> getAllexecutive(){
+		return executiveService.getAll();
 	}
 	
 	

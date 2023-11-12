@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Doctor;
+import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.DepartmentService;
 import com.sshealthcare.service.DoctorService;
@@ -93,4 +95,25 @@ public class DoctorController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
+	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id,
+							@RequestBody Doctor newDoctor) {
+		try {
+			//validate id
+			Doctor Doctor= doctorService.getOne(id);
+			if(newDoctor.getName() != null)
+				Doctor.setName(newDoctor.getName());
+			if(newDoctor.getGender() != null) 
+				Doctor.setGender(newDoctor.getGender()); 
+			if(newDoctor.getEmail() != null) 
+				Doctor.setEmail(newDoctor.getEmail()); 
+			 
+			Doctor = doctorService.insertDoctor(Doctor); 
+			return ResponseEntity.ok().body(Doctor);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+}
 }

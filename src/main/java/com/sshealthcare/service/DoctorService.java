@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
+import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.repository.DoctorRepository;
 
 @Service
@@ -44,5 +45,8 @@ public class DoctorService {
 		return optional.get();
 	}
 
+	public Doctor insertDoctor(Doctor doctor) {
+		return doctorRepository.save(doctor);
+	}
 
 }

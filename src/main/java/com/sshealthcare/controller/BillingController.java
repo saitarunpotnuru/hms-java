@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,5 +89,26 @@ public class BillingController {
   			return ResponseEntity.badRequest().body(e.getMessage());
   		}
   	}
+  	
+  //update billings by Id
+  	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
+  	public ResponseEntity<?> updateBilling(@PathVariable("id") int id,
+  							@RequestBody Billing newBilling) {
+  		try {
+  			//validate id
+  			Billing Billing = billingService.getOne(id);
+  			if(newBilling.getBillAmount() != 0)
+  				Billing.setBillAmount(newBilling.getBillAmount());
+  			if(newBilling.getPaymentStatus() != null) 
+  				Billing.setPaymentStatus(newBilling.getPaymentStatus()); 
+  			
+  			 
+  			Billing = billingService.insertReceptionist(Billing); 
+  			return ResponseEntity.ok().body(Billing);
+
+  		} catch (InvalidIdException e) {
+  			return ResponseEntity.badRequest().body(e.getMessage());
+  		}
+  }
 
 }

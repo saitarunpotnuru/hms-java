@@ -39,4 +39,8 @@ public class BillingService {
 		
 	}
 
+		public Billing insertReceptionist(Billing billing) {
+			return billingRepository.save(billing);
+		}
+
 }

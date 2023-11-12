@@ -18,11 +18,19 @@ public class DepartmentService {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 
+	//ADDING
 	public Department insert(Department department) {
 		
 		return departmentRepository.save(department);
 	}
-
+	
+	//GET ALL DEPARTMENTS
+	public List<Department> getAll() {
+		List<Department>department = departmentRepository.findAll();
+		return department;
+	}
+	
+	//GET BY ID
 	public Department getById(int depid) throws InvalidIdException {
 		Optional<Department> optional= departmentRepository.findById(depid);
 		if(!optional.isPresent())
@@ -30,16 +38,9 @@ public class DepartmentService {
 		return optional.get();
 	}
 
-	public List<Department> getAll() {
-		List<Department>department = departmentRepository.findAll();
-		return department;
-	}
+	
+	
 
-	public Department getDepById(int did) throws InvalidIdException{
-		Optional<Department> optional = departmentRepository.findById(did);
-		if(!optional.isPresent())
-			throw new InvalidIdException ("invalid patient id");
-		return optional.get();
-	}
+	
 
 }

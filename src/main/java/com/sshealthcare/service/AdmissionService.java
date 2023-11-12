@@ -1,8 +1,10 @@
 package com.sshealthcare.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sshealthcare.exception.InvalidIdException;
@@ -26,6 +28,10 @@ public class AdmissionService {
 		}
 		
 		return optional.get();
+	}
+
+	public List<Admission> getAlladmissions(Pageable pageable) {
+		return admissionRepository.findAll(pageable).getContent();
 	}
 
 }

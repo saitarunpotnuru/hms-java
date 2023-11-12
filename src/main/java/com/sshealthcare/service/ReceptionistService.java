@@ -1,11 +1,13 @@
 package com.sshealthcare.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.repository.ReceptionistRepository;
 
@@ -23,5 +25,17 @@ public class ReceptionistService {
 	public List<Receptionist> getAllreceptionists(Pageable pageable) {
 		return receptionistRepository.findAll(pageable).getContent();
 	}
+	
+	public Receptionist getOne(int id) throws InvalidIdException {
+		Optional<Receptionist> optional =  receptionistRepository.findById(id);
+		if(!optional.isPresent()){
+			throw new InvalidIdException("Receptionist ID Invalid");
+		
+	}
+		return optional.get();
+	
+}
+	
+	
 
 }

@@ -73,5 +73,16 @@ public class AdmissionController {
 		Pageable pageable =  PageRequest.of(page, size);
 		return admissionService.getAlladmissions(pageable);
 	}
+	
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+
+		try {
+			Admission admission = admissionService.getOne(id);
+			return ResponseEntity.ok().body(admission);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Admission;
+import com.sshealthcare.model.Doctor;
 import com.sshealthcare.repository.AdmissionRepository;
 
 @Service
@@ -32,6 +33,15 @@ public class AdmissionService {
 
 	public List<Admission> getAlladmissions(Pageable pageable) {
 		return admissionRepository.findAll(pageable).getContent();
+	}
+	
+	public Admission getOne(int id) throws InvalidIdException{
+		Optional<Admission> optional =  admissionRepository.findById(id);
+		if(!optional.isPresent()){
+			throw new InvalidIdException("Admission ID Invalid");
+		}
+		
+		return optional.get();
 	}
 
 }

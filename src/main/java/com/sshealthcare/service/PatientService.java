@@ -18,25 +18,38 @@ public class PatientService {
     private PatientRepository patientRepository;
     
     
-
+    //adding
 	public Patient insert(Patient patient) {
 		return patientRepository.save(patient);
 	}
 
 
-
+	//getting
 	public List<Patient> getAll() {
 		List<Patient> patient = patientRepository.findAll();
 		return patient;
 	}
 
 
-
+	//getting by id
 	public Patient getById(int pid) throws InvalidIdException{
 		Optional<Patient> optional = patientRepository.findById(pid);
 		if(!optional.isPresent())
 			throw new InvalidIdException ("invalid patient id");
 		return optional.get();
+	}
+
+
+	//delete
+	public void deletePatient(Patient patient) {
+		patientRepository.delete(patient);
+	}
+
+
+
+	public Patient getOne(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

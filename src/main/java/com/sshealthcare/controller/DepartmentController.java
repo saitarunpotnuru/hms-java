@@ -36,10 +36,14 @@ public class DepartmentController {
 	}
 	
 	//get department by id
-		@GetMapping("/get/{did}")
-		public ResponseEntity<?> getById(@PathVariable("did")int did) throws InvalidIdException {
-			Department department = departmentService.getDepById(did);
-			return ResponseEntity.ok().body(department);
+		@GetMapping("/get/{depid}")
+		public ResponseEntity<?> getById(@PathVariable("depid")int depid) {
+			try {
+				Department department = departmentService.getById(depid);
+				return ResponseEntity.ok().body(department);
+			}catch(InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
 		}
 
 }

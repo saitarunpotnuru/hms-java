@@ -82,4 +82,15 @@ public class DoctorController {
 		Pageable pageable =  PageRequest.of(page, size);
 		return doctorService.getAlldoctors(pageable);
 	}
+	
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+
+		try {
+			Doctor doctor = doctorService.getOne(id);
+			return ResponseEntity.ok().body(doctor);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

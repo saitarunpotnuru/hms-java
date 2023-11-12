@@ -34,7 +34,7 @@ public class BillingController {
     @Autowired
     private DoctorService doctorService;
 
-    
+    //adding bill with admissionId, patientId, doctorId
     @PostMapping("/add/{admissionId}/{pid}/{did}")
     public ResponseEntity<?> assignBilling(@PathVariable("admissionId") int admissionId,
     		@PathVariable("pid") int pid, @PathVariable("did") int did, 

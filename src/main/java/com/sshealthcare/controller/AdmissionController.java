@@ -40,21 +40,26 @@ public class AdmissionController {
 	@Autowired
 	private AdmissionService admissionService;
 	
+	//adding admissions with roomId, patientId, DoctorId
 	@PostMapping("/add/{rid}/{patientId}/{did}")
 	public ResponseEntity<?> assignAdmission(@PathVariable("rid") int rid,
 			@PathVariable("patientId") int patientId, @PathVariable("did") int did,
 			@RequestBody Admission admission) {
 
+		//fetch room object from DB by roomId
 		try {
 			Room room  = roomService.getById(rid);
+		//attach room to admission
 			admission.setRoom(room);
-
+		//fetch patient object from DB by patientId
 			Patient patient = patientService.getById(patientId);
+		//attach patient to admission
 			admission.setPatient(patient);
-			
+		//fetch doctor object from DB by doctorId
 			Doctor doctor = doctorService.getById(did);
+		//attach doctor to admission
 			admission.setDoctor(doctor);
-			
+		//save the product in DB
 			admission = admissionService.assignAdmission(admission);
 			return ResponseEntity.ok().body(admission);
 		}   catch(InvalidIdException e) {
@@ -65,6 +70,7 @@ public class AdmissionController {
 		
 	}
 	
+	//getting all admissions
 	@GetMapping("/all")
 	public List<Admission> getAllAdmissions(
 			@RequestParam(value="page",required = false,defaultValue = "0") Integer page,
@@ -74,9 +80,11 @@ public class AdmissionController {
 		return admissionService.getAlladmissions(pageable);
 	}
 	
+	//getting admissions by Id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
 
+		//fetch admission object using given admissionId
 		try {
 			Admission admission = admissionService.getOne(id);
 			return ResponseEntity.ok().body(admission);

@@ -18,10 +18,12 @@ public class RoomService {
 	@Autowired
 	private RoomRepository roomRepository;
 	
+	//adding rooms
 	public Room insert(Room room) {
 		return roomRepository.save(room);
 	}
 	
+	//admissions are getting by room Id
 	public Room getById(int rid) throws InvalidIdException {
 		Optional<Room> optional =  roomRepository.findById(rid);
 		if(!optional.isPresent()){
@@ -31,10 +33,12 @@ public class RoomService {
 		return optional.get();
 	}
 	
+	//getting all rooms
 	public List<Room> getAllrooms(Pageable pageable) {
 		return roomRepository.findAll(pageable).getContent();
 	}
 	
+	//getting rooms by Id
 	public Room getOne(int id) throws InvalidIdException {
 		Optional<Room> optional =  roomRepository.findById(id);
 		if(!optional.isPresent()){

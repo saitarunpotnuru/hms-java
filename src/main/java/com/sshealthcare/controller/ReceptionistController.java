@@ -35,6 +35,7 @@ public class ReceptionistController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	//adding all receptionists
 	@PostMapping("/add")
 	
 		public Receptionist insertReceptionist (@RequestBody Receptionist receptionist) {
@@ -58,6 +59,7 @@ public class ReceptionistController {
 			
 	}
 	
+	//getting all receptionists
 	@GetMapping("/all")
 	public List<Receptionist> getAllReceptionists(
 			@RequestParam(value="page",required = false,defaultValue = "0") Integer page,
@@ -67,6 +69,7 @@ public class ReceptionistController {
 		return receptionistService.getAllreceptionists(pageable);
 	}
 	
+	//getting receptionists by Id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
 
@@ -78,6 +81,7 @@ public class ReceptionistController {
 		}
 	}
 	
+	//update receptionists by Id
 	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
 	public ResponseEntity<?> updateReceptionist(@PathVariable("id") int id,
 							@RequestBody Receptionist newReceptionist) {

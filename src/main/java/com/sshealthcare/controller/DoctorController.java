@@ -45,6 +45,7 @@ public class DoctorController {
 	@Autowired
 	private DepartmentService departmentService	;
 	
+	//adding doctors with departmentId
 	@PostMapping("/add/{depid}")
 	
 	public ResponseEntity<?> assignDoctor(@PathVariable("depid") int depid,@RequestBody Doctor doctor) {
@@ -76,6 +77,7 @@ public class DoctorController {
 	}
 }
 	
+	//getting all doctors
 	@GetMapping("/all")
 	public List<Doctor> getAllDoctors(
 			@RequestParam(value="page",required = false,defaultValue = "0") Integer page,
@@ -85,6 +87,7 @@ public class DoctorController {
 		return doctorService.getAlldoctors(pageable);
 	}
 	
+	//getting doctor by Id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
 
@@ -96,6 +99,7 @@ public class DoctorController {
 		}
 	}
 	
+	//updating doctors by id
 	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
 	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id,
 							@RequestBody Doctor newDoctor) {

@@ -18,15 +18,17 @@ public class DoctorService {
 	@Autowired
 	private DoctorRepository doctorRepository;
 
-	
+	//adding
 	public Doctor insert(Doctor doctor) {
 		return doctorRepository.save(doctor);
 	}
 	
+	//getting all doctors
 	public List<Doctor> getAlldoctors(Pageable pageable) {
 		return doctorRepository.findAll(pageable).getContent();
 	}
-
+	
+	//getting doctors by Id
 	public Doctor getOne(int id) throws InvalidIdException{
 		Optional<Doctor> optional =  doctorRepository.findById(id);
 		if(!optional.isPresent()){
@@ -36,6 +38,7 @@ public class DoctorService {
 		return optional.get();
 	}
 	
+	//admissions and billings are getting by doctorId
 	public Doctor getById(int did) throws InvalidIdException {
 		Optional<Doctor> optional =  doctorRepository.findById(did);
 		if(!optional.isPresent()){
@@ -44,7 +47,8 @@ public class DoctorService {
 		
 		return optional.get();
 	}
-
+	
+	//update Doctors
 	public Doctor insertDoctor(Doctor doctor) {
 		return doctorRepository.save(doctor);
 	}

@@ -17,15 +17,18 @@ public class ReceptionistService {
 	@Autowired
 	private ReceptionistRepository receptionistRepository;
 
+	//adding receptionists
 	public Receptionist insert(Receptionist receptionist) {
 		return receptionistRepository.save(receptionist);
 		
 	}
-
+	
+	//getting all receptionists
 	public List<Receptionist> getAllreceptionists(Pageable pageable) {
 		return receptionistRepository.findAll(pageable).getContent();
 	}
 	
+	//getting receptionists by Id
 	public Receptionist getOne(int id) throws InvalidIdException {
 		Optional<Receptionist> optional =  receptionistRepository.findById(id);
 		if(!optional.isPresent()){
@@ -36,6 +39,7 @@ public class ReceptionistService {
 	
 }
 	
+	//update receptionists
 	public Receptionist insertReceptionist(Receptionist receptionist) {
 		return receptionistRepository.save(receptionist);
 	}

@@ -17,11 +17,14 @@ public class AdmissionService {
 	
 	@Autowired
 	private AdmissionRepository admissionRepository;
+	
+	//adding
 	public Admission assignAdmission(Admission admission) {
 		
 		return admissionRepository.save(admission);
 	}
 	
+	//admissions are getting by admissionId
 	public Admission getById(int admissionId) throws InvalidIdException {
 		Optional<Admission> optional =  admissionRepository.findById(admissionId);
 		if(!optional.isPresent()){
@@ -30,11 +33,13 @@ public class AdmissionService {
 		
 		return optional.get();
 	}
-
+	
+	//getting all admissions
 	public List<Admission> getAlladmissions(Pageable pageable) {
 		return admissionRepository.findAll(pageable).getContent();
 	}
 	
+	//getting by Id
 	public Admission getOne(int id) throws InvalidIdException{
 		Optional<Admission> optional =  admissionRepository.findById(id);
 		if(!optional.isPresent()){

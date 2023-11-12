@@ -78,4 +78,24 @@ public class ReceptionistController {
 		}
 	}
 	
+	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
+	public ResponseEntity<?> updateReceptionist(@PathVariable("id") int id,
+							@RequestBody Receptionist newReceptionist) {
+		try {
+			//validate id
+			Receptionist Receptionist = receptionistService.getOne(id);
+			if(newReceptionist.getName() != null)
+				Receptionist.setName(newReceptionist.getName());
+			if(newReceptionist.getContact() != null) 
+				Receptionist.setContact(newReceptionist.getContact()); 
+			if(newReceptionist.getEmail() != null) 
+				Receptionist.setEmail(newReceptionist.getEmail()); 
+			 
+			Receptionist = receptionistService.insertReceptionist(Receptionist); 
+			return ResponseEntity.ok().body(Receptionist);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+}
 }

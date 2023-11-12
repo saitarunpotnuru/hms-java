@@ -36,6 +36,9 @@ public class ReceptionistService {
 	
 }
 	
-	
+	public Receptionist insertReceptionist(Receptionist receptionist) {
+		return receptionistRepository.save(receptionist);
+	}
+
 
 }

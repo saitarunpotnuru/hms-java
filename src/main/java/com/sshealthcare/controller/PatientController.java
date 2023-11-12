@@ -3,6 +3,7 @@ package com.sshealthcare.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.ExecutiveService;
@@ -33,12 +35,13 @@ public class PatientController {
 	@Autowired
 	private UserService userService;
 
+	// adding patient
 	@PostMapping("/add")
 	public Patient insertPatient(@RequestBody Patient patient) {
 
 		// save user info in db
 		User user = patient.getUser();
-		// i am encrypting the password
+		// encrypting the password
 		String passwordPlain = user.getPassword();
 
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
@@ -52,10 +55,21 @@ public class PatientController {
 		return patientService.insert(patient);
 
 	}
-	
+
+	// get all patients
 	@GetMapping("/get")
-	public List<Patient> getAllPatients(){
+	public List<Patient> getAllPatients() {
 		return patientService.getAll();
+	}
+	
+	@GetMapping("/get/{pid}")
+	public ResponseEntity<?> getById(@PathVariable("pid")int pid) {
+		try {
+			Patient patient = patientService.getById(pid);
+			return ResponseEntity.ok().body(patient);
+		}catch(InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 }

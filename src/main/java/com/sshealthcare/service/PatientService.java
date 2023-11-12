@@ -1,9 +1,11 @@
 package com.sshealthcare.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.repository.PatientRepository;
 
@@ -26,6 +28,15 @@ public class PatientService {
 	public List<Patient> getAll() {
 		List<Patient> patient = patientRepository.findAll();
 		return patient;
+	}
+
+
+
+	public Patient getById(int pid) throws InvalidIdException{
+		Optional<Patient> optional = patientRepository.findById(pid);
+		if(!optional.isPresent())
+			throw new InvalidIdException ("invalid patient id");
+		return optional.get();
 	}
 
 

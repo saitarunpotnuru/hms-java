@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
+import com.sshealthcare.model.Patient;
 import com.sshealthcare.repository.DepartmentRepository;
 
 
@@ -32,6 +33,13 @@ public class DepartmentService {
 	public List<Department> getAll() {
 		List<Department>department = departmentRepository.findAll();
 		return department;
+	}
+
+	public Department getDepById(int did) throws InvalidIdException{
+		Optional<Department> optional = departmentRepository.findById(did);
+		if(!optional.isPresent())
+			throw new InvalidIdException ("invalid patient id");
+		return optional.get();
 	}
 
 }

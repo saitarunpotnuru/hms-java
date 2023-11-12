@@ -49,4 +49,8 @@ public class AdmissionService {
 		return optional.get();
 	}
 
+	public Admission insertAdmission(Admission admission) {
+		return admissionRepository.save(admission);
+	}
+
 }

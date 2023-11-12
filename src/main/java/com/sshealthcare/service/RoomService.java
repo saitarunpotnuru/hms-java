@@ -35,5 +35,13 @@ public class RoomService {
 		return roomRepository.findAll(pageable).getContent();
 	}
 	
+	public Room getOne(int id) throws InvalidIdException {
+		Optional<Room> optional =  roomRepository.findById(id);
+		if(!optional.isPresent()){
+			throw new InvalidIdException("Room ID Invalid");
+		
+	}
+		return optional.get();
 
+}
 }

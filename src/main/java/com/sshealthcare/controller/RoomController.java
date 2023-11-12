@@ -40,6 +40,15 @@ public class RoomController {
 		return roomService.getAllrooms(pageable);
 	}
 	
-	
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+
+		try {
+			Room room = roomService.getOne(id);
+			return ResponseEntity.ok().body(room);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }
 

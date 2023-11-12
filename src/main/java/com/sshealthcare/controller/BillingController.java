@@ -76,5 +76,17 @@ public class BillingController {
   		Pageable pageable =  PageRequest.of(page, size);
   		return billingService.getAllbillings(pageable);
   	}
+  	
+  //getting billings by Id
+  	@GetMapping("/getone/{id}")
+  	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+
+  		try {
+  			Billing billing = billingService.getOne(id);
+  			return ResponseEntity.ok().body(billing);
+  		} catch (InvalidIdException e) {
+  			return ResponseEntity.badRequest().body(e.getMessage());
+  		}
+  	}
 
 }

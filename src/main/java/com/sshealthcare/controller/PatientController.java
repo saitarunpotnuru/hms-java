@@ -98,19 +98,27 @@ public class PatientController {
 		
 	}
 	
+	/*@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
+	public ResponseEntity<?> updateVendor(@PathVariable("id") int id,
+							@RequestBody VendorDto newVendor) {
+		try {
+			//validate id
+			Vendor oldVendor = vendorService.getOne(id);
+			if(newVendor.getCity() != null)
+				oldVendor.setCity(newVendor.getCity());
+			if(newVendor.getName() != null) 
+				oldVendor.setName(newVendor.getName()); 
+			 
+			oldVendor = vendorService.postVendor(oldVendor); 
+			return ResponseEntity.ok().body(oldVendor);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}*/
 	
 	
 	
-	/*//deleting a patient
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deletePatient(@PathVariable("id") int id) throws InvalidIdException {
-		
-		//validate id
-		Patient patient = patientService.getOne(id);
-		//delete
-		patientService.deletePatient(patient);
-		return ResponseEntity.ok().body("patient deleted successfully");
-	}
-*/
+
 	
 }

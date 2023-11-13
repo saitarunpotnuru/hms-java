@@ -34,11 +34,17 @@ public class PatientService {
 
 
 	//getting by id
-	public Patient getById(int pid) throws InvalidIdException{
+	public Patient getone(int pid) throws InvalidIdException{
 		Optional<Patient> optional = patientRepository.findById(pid);
 		if(!optional.isPresent())
 			throw new InvalidIdException ("invalid patient id");
 		return optional.get();
+	}
+
+
+	public Patient getById(int id) {
+		return patientRepository.getById(id);
+		
 	}
 
 

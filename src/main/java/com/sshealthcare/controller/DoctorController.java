@@ -123,4 +123,15 @@ public class DoctorController {
 		}
 }
 	
+	//deleting a Doctor
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteDoctor(@PathVariable("id") int id) throws InvalidIdException {
+		
+		//validate id
+		Doctor doctor = doctorService.getOne(id);
+		//delete
+		doctorService.deleteDoctor(doctor);
+		return ResponseEntity.ok().body("Doctor deleted successfully");
+	}
+	
 }

@@ -107,16 +107,16 @@ public class DoctorController {
 							@RequestBody Doctor newDoctor) {
 		try {
 			//validate id
-			Doctor Doctor= doctorService.getOne(id);
+			Doctor doctor= doctorService.getOne(id);
 			if(newDoctor.getName() != null)
-				Doctor.setName(newDoctor.getName());
+				doctor.setName(newDoctor.getName());
 			if(newDoctor.getGender() != null) 
-				Doctor.setGender(newDoctor.getGender()); 
+				doctor.setGender(newDoctor.getGender()); 
 			if(newDoctor.getEmail() != null) 
-				Doctor.setEmail(newDoctor.getEmail()); 
+				doctor.setEmail(newDoctor.getEmail()); 
 			 
-			Doctor = doctorService.insertDoctor(Doctor); 
-			return ResponseEntity.ok().body(Doctor);
+			doctor = doctorService.insertDoctor(doctor); 
+			return ResponseEntity.ok().body(doctor);
 
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

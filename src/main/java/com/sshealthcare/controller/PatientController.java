@@ -81,7 +81,8 @@ public class PatientController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
 			@RequestBody Patient newPatient) throws InvalidIdException {
-		
+	try {
+			
 		Patient patient = patientService.getById(id);
 		if(newPatient.getName()!=null)
 			patient.setName(newPatient.getName());
@@ -94,9 +95,13 @@ public class PatientController {
 		if(newPatient.getEmail()!=null)
 			patient.setEmail(newPatient.getEmail());
 		return ResponseEntity.ok().body(patient);
-		
-		
+	} 
+	catch (InvalidIdException e) {
+		return ResponseEntity.badRequest().body(e.getMessage());
 	}
+}
+		
+
 	
 	/*@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
 	public ResponseEntity<?> updateVendor(@PathVariable("id") int id,

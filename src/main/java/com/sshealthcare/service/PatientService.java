@@ -43,46 +43,6 @@ public class PatientService {
 
 
 	
-
-
-	
-
-
-
-	
-
-	
-
-
-	
-
-	
-
-
-	
-
-
-
-
-
-
-
-	
-
-
-
-	
-
-
-
-	
-
-
-
-	
-
-
-	
 }
 
 

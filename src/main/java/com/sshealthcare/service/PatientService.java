@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sshealthcare.exception.InvalidIdException;
+import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
+import com.sshealthcare.repository.DoctorRepository;
 import com.sshealthcare.repository.PatientRepository;
 
 
@@ -40,17 +42,28 @@ public class PatientService {
 	}
 
 
-	//delete
-	public void deletePatient(Patient patient) {
-		patientRepository.delete(patient);
-	}
+	
+
+
+	
 
 
 
-	public Patient getOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+
+	
+
+
+	
+
+	
+
+
+	
+
+
+
+
 
 
 

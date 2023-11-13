@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,6 +63,8 @@ public class PatientController {
 	public List<Patient> getAllPatients() {
 		return patientService.getAll();
 	}
+	
+	
 	//get patient by id
 	@GetMapping("/get/{pid}")
 	public ResponseEntity<?> getById(@PathVariable("pid")int pid) {
@@ -74,7 +77,31 @@ public class PatientController {
 	}
 	
 	
-	//deleting a patient
+	//update patient
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
+			@RequestBody Patient newPatient) throws InvalidIdException {
+		
+		Patient patient = patientService.getById(id);
+		if(newPatient.getName()!=null)
+			patient.setName(newPatient.getName());
+		if(newPatient.getAge()!=0)
+			patient.setAge(newPatient.getAge());
+		if(newPatient.getGender()!=null)
+			patient.setGender(newPatient.getGender());
+		if(newPatient.getContact()!=null)
+			patient.setContact(newPatient.getContact());
+		if(newPatient.getEmail()!=null)
+			patient.setEmail(newPatient.getEmail());
+		return ResponseEntity.ok().body(patient);
+		
+		
+	}
+	
+	
+	
+	
+	/*//deleting a patient
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deletePatient(@PathVariable("id") int id) throws InvalidIdException {
 		
@@ -84,5 +111,6 @@ public class PatientController {
 		patientService.deletePatient(patient);
 		return ResponseEntity.ok().body("patient deleted successfully");
 	}
-
+*/
+	
 }

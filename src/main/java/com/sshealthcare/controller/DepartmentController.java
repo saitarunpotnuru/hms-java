@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +37,25 @@ public class DepartmentController {
 	}
 	
 	//get department by id
-		@GetMapping("/get/{depid}")
-		public ResponseEntity<?> getById(@PathVariable("depid")int depid) {
+		@GetMapping("/get/{id}")
+		public ResponseEntity<?> getOne(@PathVariable("id")int id) {
 			try {
-				Department department = departmentService.getById(depid);
+				Department department = departmentService.getOne(id);
+				return ResponseEntity.ok().body(department);
+			}catch(InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+		}
+		
+		//update department
+		@PutMapping("/update/{id}")
+		public ResponseEntity<?> getOne(@PathVariable("id")int id,@RequestBody Department newdeDepartment) {
+			try {
+				Department department = departmentService.getOne(id);
+				if(newdeDepartment.getName()!=null)
+					department.setName(newdeDepartment.getName());
+				
+				department = departmentService.insert(department);
 				return ResponseEntity.ok().body(department);
 			}catch(InvalidIdException e) {
 				return ResponseEntity.badRequest().body(e.getMessage());

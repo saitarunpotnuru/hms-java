@@ -32,7 +32,7 @@ public class ExecutiveService {
 		}
 	
 	//get by id
-	public Executive getById(int eid) throws InvalidIdException{
+	public Executive getOne(int eid) throws InvalidIdException{
 		Optional<Executive> optional = executiveRepository.findById(eid);
 		if(!optional.isPresent())
 			throw new InvalidIdException("invalid executive id");

@@ -31,7 +31,7 @@ public class DepartmentService {
 	}
 	
 	//GET BY ID
-	public Department getById(int depid) throws InvalidIdException {
+	public Department getOne(int depid) throws InvalidIdException {
 		Optional<Department> optional= departmentRepository.findById(depid);
 		if(!optional.isPresent())
 			throw new InvalidIdException("department id invalid");

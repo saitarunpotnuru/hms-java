@@ -53,7 +53,7 @@ public class DoctorController {
 	public ResponseEntity<?> assignDoctor(@PathVariable("depid") int depid,@RequestBody Doctor doctor) {
 
 		try {
-			Department department = departmentService.getById(depid);
+			Department department = departmentService.getOne(depid);
 			
 			doctor.setDepartment(department);
 		

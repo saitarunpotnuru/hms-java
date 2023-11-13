@@ -28,64 +28,62 @@ import com.sshealthcare.service.RoomService;
 @RestController
 @RequestMapping("/admission")
 public class AdmissionController {
-	
+
 	@Autowired
 	private RoomService roomService;
-	
+
 	@Autowired
 	private PatientService patientService;
-	
+
 	@Autowired
 	private DoctorService doctorService;
-	
+
 	@Autowired
 	private AdmissionService admissionService;
-	
-	//adding admissions with roomId, patientId, DoctorId
-	@PostMapping("/add/{rid}/{patientId}/{did}")
-	public ResponseEntity<?> assignAdmission(@PathVariable("rid") int rid,
-			@PathVariable("patientId") int patientId, @PathVariable("did") int did,
-			@RequestBody Admission admission) {
 
-		//fetch room object from DB by roomId
+	// adding admissions with roomId, patientId, DoctorId
+	@PostMapping("/add/{rid}/{patientId}/{did}")
+	public ResponseEntity<?> assignAdmission(@PathVariable("rid") int rid, @PathVariable("patientId") int patientId,
+			@PathVariable("did") int did, @RequestBody Admission admission) {
+
+		// fetch room object from DB by roomId
 		try {
-			Room room  = roomService.getById(rid);
-		//attach room to admission
+			Room room = roomService.getById(rid);
+			// attach room to admission
 			admission.setRoom(room);
-		//fetch patient object from DB by patientId
+			// fetch patient object from DB by patientId
 			Patient patient = patientService.getone(patientId);
-		//attach patient to admission
+			// attach patient to admission
 			admission.setPatient(patient);
-		//fetch doctor object from DB by doctorId
+			// fetch doctor object from DB by doctorId
 			Doctor doctor = doctorService.getById(did);
-		//attach doctor to admission
+			// attach doctor to admission
 			admission.setDoctor(doctor);
-		//save the product in DB
+			// save the product in DB
 			admission = admissionService.assignAdmission(admission);
 			return ResponseEntity.ok().body(admission);
-		}   catch(InvalidIdException e) {
-			return
-					ResponseEntity.badRequest().body(e.getMessage());
-			
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+
 		}
-		
+
 	}
-	
-	//getting all admissions
+
+	// getting all admissions
 	@GetMapping("/all")
 	public List<Admission> getAllAdmissions(
-			@RequestParam(value="page",required = false,defaultValue = "0") Integer page,
-			@RequestParam(value="size",required = false,defaultValue = "1000000") Integer size) {
-		
-		Pageable pageable =  PageRequest.of(page, size);
+			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(value = "size", required = false, defaultValue = "1000000") Integer size) {
+
+		Pageable pageable = PageRequest.of(page, size);
 		return admissionService.getAlladmissions(pageable);
 	}
-	
-	//getting admissions by Id
+
+	// getting admissions by Id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
 
-		//fetch admission object using given admissionId
+		// fetch admission object using given admissionId
 		try {
 			Admission admission = admissionService.getOne(id);
 			return ResponseEntity.ok().body(admission);
@@ -94,23 +92,22 @@ public class AdmissionController {
 		}
 	}
 
-	//updating admissions by id
-		@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
-		public ResponseEntity<?> updateAdmission(@PathVariable("id") int id,
-								@RequestBody Admission newAdmission) {
-			try {
-				//validate id
-				Admission Admission= admissionService.getOne(id);
-				if(newAdmission.getDischargeDate() != null)
-					Admission.setDischargeDate(newAdmission.getDischargeDate());
-				if(newAdmission.getStatus() != null) 
-					Admission.setStatus(newAdmission.getStatus()); 
-				 
-				Admission = admissionService.insertAdmission(Admission); 
-				return ResponseEntity.ok().body(Admission);
+	// updating admissions by id
+	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update
+	public ResponseEntity<?> updateAdmission(@PathVariable("id") int id, @RequestBody Admission newAdmission) {
+		try {
+			// validate id
+			Admission Admission = admissionService.getOne(id);
+			if (newAdmission.getDischargeDate() != null)
+				Admission.setDischargeDate(newAdmission.getDischargeDate());
+			if (newAdmission.getStatus() != null)
+				Admission.setStatus(newAdmission.getStatus());
 
-			} catch (InvalidIdException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+			Admission = admissionService.insertAdmission(Admission);
+			return ResponseEntity.ok().body(Admission);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 }

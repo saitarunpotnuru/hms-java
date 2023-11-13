@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sshealthcare.exception.InvalidIdException;
+import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.ExecutiveService;
@@ -67,9 +68,9 @@ public class PatientController {
 	
 	//get patient by id
 	@GetMapping("/get/{pid}")
-	public ResponseEntity<?> getById(@PathVariable("pid")int pid) {
+	public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
 		try {
-			Patient patient = patientService.getById(pid);
+			Patient patient = patientService.getone(pid);
 			return ResponseEntity.ok().body(patient);
 		}catch(InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -78,47 +79,34 @@ public class PatientController {
 	
 	
 	//update patient
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
-			@RequestBody Patient newPatient) throws InvalidIdException {
-		
-		Patient patient = patientService.getById(id);
-		if(newPatient.getName()!=null)
-			patient.setName(newPatient.getName());
-		if(newPatient.getAge()!=0)
-			patient.setAge(newPatient.getAge());
-		if(newPatient.getGender()!=null)
-			patient.setGender(newPatient.getGender());
-		if(newPatient.getContact()!=null)
-			patient.setContact(newPatient.getContact());
-		if(newPatient.getEmail()!=null)
-			patient.setEmail(newPatient.getEmail());
-		return ResponseEntity.ok().body(patient);
-		
-		
-	}
-	
-	/*@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
-	public ResponseEntity<?> updateVendor(@PathVariable("id") int id,
-							@RequestBody VendorDto newVendor) {
+	@PutMapping("/update/{id}")  
+	public ResponseEntity<?> updatePatient(@PathVariable("id") int id,
+							@RequestBody Patient newPatient) {
 		try {
 			//validate id
-			Vendor oldVendor = vendorService.getOne(id);
-			if(newVendor.getCity() != null)
-				oldVendor.setCity(newVendor.getCity());
-			if(newVendor.getName() != null) 
-				oldVendor.setName(newVendor.getName()); 
+			Patient patient = patientService.getone(id);
+			if(newPatient.getName() != null)
+				patient.setName(newPatient.getName());
+			if(newPatient.getGender() != null) 
+				patient.setGender(newPatient.getGender()); 
+			if(newPatient.getEmail() != null) 
+				patient.setEmail(newPatient.getEmail()); 
 			 
-			oldVendor = vendorService.postVendor(oldVendor); 
-			return ResponseEntity.ok().body(oldVendor);
+			patient = patientService.insert(patient); 
+			return ResponseEntity.ok().body(patient);
 
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-	}*/
+}
+		
+		
+	}
+	
+	
 	
 	
 	
 
 	
-}
+

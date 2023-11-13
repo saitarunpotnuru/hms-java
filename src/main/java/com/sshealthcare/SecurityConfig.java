@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
+<<<<<<< HEAD
 		.antMatchers("/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
 				
 					"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}",
@@ -44,6 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					"/department/add","/department/get","/department/get/{did}",
 					
 					"/billing/add/{admissionId}/{pid}/{did}","/billing/all","/billing/getone/{id}","/billing/update/{id}").permitAll()
+=======
+<<<<<<< HEAD
+		.antMatchers("/admission/add/{rid}/{patientId}/{did}","/admission/all","/admission/getone/{id}","/admission/update/{id}","/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/room/add","/room/all","/room/getone/{id}","/room/delete/{id}","/executive/add","/executive/get","/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}","/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}","/receptionist/delete/{id}","/department/add","/department/get","/department/get/{did}","/billing/add/{admissionId}/{pid}/{did}","/billing/all","/billing/getone/{id}","/billing/update/{id}").permitAll()
+=======
+		.antMatchers("/admission/add/{rid}/{patientId}/{did}","/admission/all","/admission/getone/{id}","/admission/update/{id}",
+				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
+				"/room/add","/room/all","/room/getone/{id}",
+				"/executive/add","/executive/get",
+				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}",
+				"/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}",
+				"/department/add","/department/get","/department/get/{did}",
+				"/billing/add/{admissionId}/{pid}/{did}","/billing/all","/billing/getone/{id}","/billing/update/{id}").permitAll()
+>>>>>>> 848572199f30a638b334656c2f39d484ca91494e
+>>>>>>> 7a7d5074e46b581fc50efbe618def75b17f2eae1
 		.anyRequest().authenticated()
 		.and()
 		.csrf().disable()

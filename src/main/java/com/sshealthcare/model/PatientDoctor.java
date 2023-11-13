@@ -1,6 +1,8 @@
 package com.sshealthcare.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,13 +15,21 @@ import javax.persistence.Table;
 public class PatientDoctor {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
+	
 	private int Id;
+	
     private String prescriptionDetails;
-    private LocalDateTime slot;
+    
+    private LocalDate date;
+    
+    private LocalTime time;
+    
     @ManyToOne
     private Patient patient;
+    
     @ManyToOne
     private Doctor doctor;
+    
 	public int getId() {
 		return Id;
 	}
@@ -32,11 +42,18 @@ public class PatientDoctor {
 	public void setPrescriptionDetails(String prescriptionDetails) {
 		this.prescriptionDetails = prescriptionDetails;
 	}
-	public LocalDateTime getSlot() {
-		return slot;
+	
+	public LocalDate getDate() {
+		return date;
 	}
-	public void setSlot(LocalDateTime slot) {
-		this.slot = slot;
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	public LocalTime getTime() {
+		return time;
+	}
+	public void setTime(LocalTime time) {
+		this.time = time;
 	}
 	public Patient getPatient() {
 		return patient;
@@ -52,9 +69,10 @@ public class PatientDoctor {
 	}
 	@Override
 	public String toString() {
-		return "PatientDoctor [Id=" + Id + ", prescriptionDetails=" + prescriptionDetails + ", slot=" + slot
-				+ ", patient=" + patient + ", doctor=" + doctor + "]";
+		return "PatientDoctor [Id=" + Id + ", prescriptionDetails=" + prescriptionDetails + ", date=" + date + ", time="
+				+ time + ", patient=" + patient + ", doctor=" + doctor + "]";
 	}
+	
     
     
    

@@ -102,7 +102,7 @@ public class DoctorController {
 	}
 	
 	//updating doctors by id
-	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
+	@PutMapping("/update/{id}")  
 	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id,
 							@RequestBody Doctor newDoctor) {
 		try {

@@ -36,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					"/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}",
 					
 					"/executive/add","/executive/get","/executive/update/{id}",
+					
+					"/appointment/add/pid/did",
 				
 					"/admission/add/{rid}/{patientId}/{did}","/admission/all","/admission/getone/{id}","/admission/update/{id}",
 				

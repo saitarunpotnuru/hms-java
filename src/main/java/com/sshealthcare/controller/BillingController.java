@@ -90,7 +90,7 @@ public class BillingController {
   		}
   	}
   	
-  //update billings by Id
+  //update billings
   	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
   	public ResponseEntity<?> updateBilling(@PathVariable("id") int id,
   							@RequestBody Billing newBilling) {

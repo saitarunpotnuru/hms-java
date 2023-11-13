@@ -13,13 +13,19 @@ import javax.persistence.Table;
 public class PatientDoctor {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
+	
 	private int Id;
+	
     private String prescriptionDetails;
+    
     private LocalDateTime slot;
+    
     @ManyToOne
     private Patient patient;
+    
     @ManyToOne
     private Doctor doctor;
+    
 	public int getId() {
 		return Id;
 	}

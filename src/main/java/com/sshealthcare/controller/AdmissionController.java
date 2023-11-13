@@ -51,16 +51,22 @@ public class AdmissionController {
 			Room room = roomService.getById(rid);
 			// attach room to admission
 			admission.setRoom(room);
+			
 			// fetch patient object from DB by patientId
 			Patient patient = patientService.getone(patientId);
+			
 			// attach patient to admission
 			admission.setPatient(patient);
+			
 			// fetch doctor object from DB by doctorId
 			Doctor doctor = doctorService.getById(did);
+			
 			// attach doctor to admission
 			admission.setDoctor(doctor);
+			
 			// save the product in DB
 			admission = admissionService.assignAdmission(admission);
+			
 			return ResponseEntity.ok().body(admission);
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

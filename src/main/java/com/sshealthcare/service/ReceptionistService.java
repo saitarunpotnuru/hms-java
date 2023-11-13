@@ -44,5 +44,10 @@ public class ReceptionistService {
 		return receptionistRepository.save(receptionist);
 	}
 
+	public void deleteReceptionist(Receptionist receptionist) {
+		receptionistRepository.delete(receptionist);
+		
+	}
+
 
 }

@@ -71,6 +71,18 @@ public class ReceptionistController {
 		return receptionistService.getAllreceptionists(pageable);
 	}
 	
+	//get receptionist by id
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+
+		try {
+			Receptionist receptionist = receptionistService.getOne(id);
+			return ResponseEntity.ok().body(receptionist);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 
 	
 	//update receptionists by Id

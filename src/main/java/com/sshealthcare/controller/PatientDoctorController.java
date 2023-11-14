@@ -27,52 +27,53 @@ import com.sshealthcare.service.PatientService;
 @RequestMapping("/appointment")
 public class PatientDoctorController {
 	@Autowired
-	private PatientDoctorService patientDoctorService ;
-	
+	private PatientDoctorService patientDoctorService;
+
 	@Autowired
 	private DoctorService doctorService;
-	
+
 	@Autowired
 	private PatientService patientService;
-	
-	//adding appointments
-	@PostMapping("/add/{pid}/{did}")
-	public ResponseEntity<?> insertAppointment(@PathVariable("pid")int pid,@PathVariable("did")int did,@RequestBody PatientDoctor patientDoctor) {
+
+	// adding appointments
+			@PostMapping("/add/{pid}/{did}")
+			public ResponseEntity<?> insertAppointment(@PathVariable("pid") int pid, @PathVariable("did") int did,
+					@RequestBody PatientDoctor patientDoctor) {
+				try {
+		
+					Patient patient = patientService.getone(pid);
+					patientDoctor.setPatient(patient);
+		
+					Doctor doctor = doctorService.getById(did);
+					patientDoctor.setDoctor(doctor);
+		
+					patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
+					return ResponseEntity.ok().body(patientDoctor);
+				} catch (InvalidIdException e) {
+					return ResponseEntity.badRequest().body(e.getMessage());
+				}
+			}
+
+	// get all appointments
+	@GetMapping("/all")
+	public List<PatientDoctor> getAllPatientDoctors(
+			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(value = "size", required = false, defaultValue = "1000000") Integer size) {
+
+		Pageable pageable = PageRequest.of(page, size);
+		return patientDoctorService.getAllpatientDoctors(pageable);
+	}
+
+	// get appointments by Id
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+
 		try {
-			
-			Patient patient = patientService.getone(pid);
-			patientDoctor.setPatient(patient);
-			
-			Doctor doctor = doctorService.getById(did);
-			patientDoctor.setDoctor(doctor);
-			
-			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
+			PatientDoctor patientDoctor = patientDoctorService.getOne(id);
 			return ResponseEntity.ok().body(patientDoctor);
-		}catch (InvalidIdException e) {
+		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	//getting all appointments
-		@GetMapping("/all")
-		public List<PatientDoctor> getAllPatientDoctors(
-				@RequestParam(value="page",required = false,defaultValue = "0") Integer page,
-				@RequestParam(value="size",required = false,defaultValue = "1000000") Integer size) {
-			
-			Pageable pageable =  PageRequest.of(page, size);
-			return patientDoctorService.getAllpatientDoctors(pageable);
-		}
-		
-		//getting appointments by Id
-		@GetMapping("/getone/{id}")
-		public ResponseEntity<?> getOne(@PathVariable("id") int id) {
-
-			try {
-				PatientDoctor patientDoctor = patientDoctorService.getOne(id);
-				return ResponseEntity.ok().body(patientDoctor);
-			} catch (InvalidIdException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
-		}
 
 }

@@ -18,11 +18,15 @@ public class Doctor {
     private String name;
     private String gender;
     private String email;
+<<<<<<< HEAD
     private String contact;
     private LocalDate date ;
     private LocalTime startTime;
     private LocalTime endTime;
 
+=======
+    private String Contact;
+>>>>>>> 703a288a9de69f4cfc538b4f9e435d1d80eada4f
     
     
     
@@ -97,6 +101,14 @@ public class Doctor {
 		this.email = email;
 	}
 
+	public String getContact() {
+		return Contact;
+	}
+
+	public void setContact(String contact) {
+		Contact = contact;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -113,8 +125,10 @@ public class Doctor {
 		this.department = department;
 	}
 
+
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", contact="
 				+ contact + ", date=" + date + ", startTime=" + startTime + ", endTime=" + endTime + ", user=" + user
 				+ ", department=" + department + "]";
@@ -123,5 +137,10 @@ public class Doctor {
 	
 
 	
+=======
+		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", Contact="
+				+ Contact + ", user=" + user + ", department=" + department + "]";
+	}	
+>>>>>>> 703a288a9de69f4cfc538b4f9e435d1d80eada4f
 
 }

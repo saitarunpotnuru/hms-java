@@ -12,6 +12,7 @@ public class Receptionist {
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int Id;
     private String name;
+    private String gender;
     private String contact;
     private String email;
     private String gender;
@@ -51,6 +52,16 @@ public class Receptionist {
 	}
 
 
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
 	public String getContact() {
 		return contact;
 	}
@@ -81,10 +92,16 @@ public class Receptionist {
 	}
 
 
+
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "Receptionist [Id=" + Id + ", name=" + name + ", contact=" + contact + ", email=" + email + ", gender="
 				+ gender + ", user=" + user + "]";
+=======
+		return "Receptionist [Id=" + Id + ", name=" + name + ", gender=" + gender + ", contact=" + contact + ", email="
+				+ email + ", user=" + user + "]";
+>>>>>>> 703a288a9de69f4cfc538b4f9e435d1d80eada4f
 	}
 	
 

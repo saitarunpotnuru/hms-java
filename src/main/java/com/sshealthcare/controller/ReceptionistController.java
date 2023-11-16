@@ -71,6 +71,11 @@ public class ReceptionistController {
 		return receptionistService.getAllreceptionists(pageable);
 	}
 	
+<<<<<<< HEAD
+	//getting receptionists by Id
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+=======
 	//get receptionist by id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -83,7 +88,15 @@ public class ReceptionistController {
 		}
 	}
 	
+>>>>>>> 1acdb56b8539fde3dd5412298ca248a107263aba
 
+		try {
+			Receptionist receptionist = receptionistService.getOne(id);
+			return ResponseEntity.ok().body(receptionist);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 	
 	//update receptionists by Id
 	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update

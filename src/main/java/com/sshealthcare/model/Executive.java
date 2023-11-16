@@ -12,6 +12,7 @@ public class Executive {
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int Id;
     private String name;
+    private String gender;
     private String contact;
     private String email;
     
@@ -37,6 +38,16 @@ public class Executive {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 
@@ -72,8 +83,8 @@ public class Executive {
 
 	@Override
 	public String toString() {
-		return "Admin [Id=" + Id + ", name=" + name + ", contact=" + contact + ", email=" + email + ", user=" + user
-				+ "]";
+		return "Executive [Id=" + Id + ", name=" + name + ", gender=" + gender + ", contact=" + contact + ", email="
+				+ email + ", user=" + user + "]";
 	}
 	
 

@@ -31,7 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers(
 				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
+<<<<<<< HEAD
+				"/room/add","/room/all","/room/getone/{id}",
+				"/executive/add","/executive/get","/executive/get/{id}",
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
+=======
 				
+>>>>>>> 1acdb56b8539fde3dd5412298ca248a107263aba
 				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}",
 				
 				"/executive/add","/executive/get",

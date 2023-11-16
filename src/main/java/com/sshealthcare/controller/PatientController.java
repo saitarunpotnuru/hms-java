@@ -47,10 +47,8 @@ public class PatientController {
 
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
 		user.setPassword(encodedPassword);
-
 		user.setRole("PATIENT");
 		user = userService.insert(user);
-		// attach the saved user(in step 1)
 		patient.setUser(user);
 
 		return patientService.insert(patient);

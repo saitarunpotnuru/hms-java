@@ -20,6 +20,8 @@ public class PatientDoctor {
 	
     private String prescriptionDetails;
     
+    private Double fee;
+    
     private LocalDate date;
     
     private LocalTime time;
@@ -67,11 +69,18 @@ public class PatientDoctor {
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
+	public Double getFee() {
+		return fee;
+	}
+	public void setFee(Double fee) {
+		this.fee = fee;
+	}
 	@Override
 	public String toString() {
-		return "PatientDoctor [Id=" + Id + ", prescriptionDetails=" + prescriptionDetails + ", date=" + date + ", time="
-				+ time + ", patient=" + patient + ", doctor=" + doctor + "]";
+		return "PatientDoctor [Id=" + Id + ", prescriptionDetails=" + prescriptionDetails + ", fee=" + fee + ", date="
+				+ date + ", time=" + time + ", patient=" + patient + ", doctor=" + doctor + "]";
 	}
+	
 	
     
     

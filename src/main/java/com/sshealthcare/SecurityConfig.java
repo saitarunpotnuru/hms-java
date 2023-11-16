@@ -29,15 +29,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
-		.antMatchers("/admission/add/{rid}/{patientId}/{did}","/admission/all","/admission/getone/{id}","/admission/update/{id}",
+		.antMatchers(
 				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
+<<<<<<< HEAD
 				"/room/add","/room/all","/room/getone/{id}",
 				"/executive/add","/executive/get","/executive/get/{id}",
 				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
+=======
+				
+>>>>>>> 1acdb56b8539fde3dd5412298ca248a107263aba
 				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}",
+				
+				"/executive/add","/executive/get",
+				
 				"/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}","/receptionist/delete/{id}",
+				
+				"/admission/add/{rid}/{patientId}/{did}","/admission/all","/admission/getone/{id}","/admission/update/{id}",
+	
+				"/room/add","/room/all","/room/getone/{id}",
+				
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
+				
 				"/department/add","/department/get","/department/get/{did}",
+				
 				"/billing/add/{admissionId}/{pid}/{did}","/billing/all","/billing/getone/{id}","/billing/update/{id}").permitAll()
+		
 		.anyRequest().authenticated()
 		.and()
 		.csrf().disable()

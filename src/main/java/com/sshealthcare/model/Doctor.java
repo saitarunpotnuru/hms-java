@@ -1,5 +1,8 @@
 package com.sshealthcare.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +18,48 @@ public class Doctor {
     private String name;
     private String gender;
     private String email;
+    private String contact;
+    private LocalDate date ;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
     
     
-    @OneToOne
+    
+    public LocalTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+
+	public LocalTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalTime endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	@OneToOne
     private User user;
     
     @ManyToOne
@@ -73,7 +115,8 @@ public class Doctor {
 
 	@Override
 	public String toString() {
-		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", user=" + user
+		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", contact="
+				+ contact + ", date=" + date + ", startTime=" + startTime + ", endTime=" + endTime + ", user=" + user
 				+ ", department=" + department + "]";
 	}
 

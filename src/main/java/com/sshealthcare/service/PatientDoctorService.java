@@ -26,8 +26,8 @@ public class PatientDoctorService {
 		return patientDoctorRepository.findAll(pageable).getContent();
 	}
 
-	public PatientDoctor getOne(int id) throws InvalidIdException {
-		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(id);
+	public PatientDoctor getOne(int pid) throws InvalidIdException {
+		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(pid);
 		if(!optional.isPresent()){
 			throw new InvalidIdException("Receptionist ID Invalid");
 		
@@ -35,5 +35,6 @@ public class PatientDoctorService {
 		return optional.get();
 	
 }
-
 }
+
+	

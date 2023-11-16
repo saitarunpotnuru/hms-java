@@ -13,6 +13,7 @@ public class Admission {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int Id;
+	private LocalDate admittedDate;
     private LocalDate dischargeDate;
 	private String status;
 	
@@ -73,10 +74,18 @@ public class Admission {
 		this.doctor = doctor;
 	}
 
+	public LocalDate getAdmittedDate() {
+		return admittedDate;
+	}
+
+	public void setAdmittedDate(LocalDate admittedDate) {
+		this.admittedDate = admittedDate;
+	}
+
 	@Override
 	public String toString() {
-		return "Admission [Id=" + Id + ", dischargeDate=" + dischargeDate + ", status=" + status + ", room=" + room
-				+ ", patient=" + patient + ", doctor=" + doctor + "]";
+		return "Admission [Id=" + Id + ", admittedDate=" + admittedDate + ", dischargeDate=" + dischargeDate
+				+ ", status=" + status + ", room=" + room + ", patient=" + patient + ", doctor=" + doctor + "]";
 	}
 	
 	

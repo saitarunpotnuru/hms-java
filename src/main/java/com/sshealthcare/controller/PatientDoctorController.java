@@ -1,5 +1,7 @@
 package com.sshealthcare.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +38,30 @@ public class PatientDoctorController {
 	private PatientService patientService;
 
 	// adding appointments
-			@PostMapping("/add/{pid}/{did}")
-			public ResponseEntity<?> insertAppointment(@PathVariable("pid") int pid, @PathVariable("did") int did,
-					@RequestBody PatientDoctor patientDoctor) {
-				try {
-		
-					Patient patient = patientService.getone(pid);
-					patientDoctor.setPatient(patient);
-		
-					Doctor doctor = doctorService.getById(did);
-					patientDoctor.setDoctor(doctor);
-		
-					patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
-					return ResponseEntity.ok().body(patientDoctor);
-				} catch (InvalidIdException e) {
-					return ResponseEntity.badRequest().body(e.getMessage());
-				}
+	@PostMapping("/add/{pid}/{did}")
+	public ResponseEntity<?> insertAppointment(@PathVariable("pid") int pid, @PathVariable("did") int did,
+			@RequestBody PatientDoctor patientDoctor) {
+		try {
+
+			Patient patient = patientService.getone(pid);
+			patientDoctor.setPatient(patient);
+
+			Doctor doctor = doctorService.getById(did);
+			patientDoctor.setDoctor(doctor);
+
+			LocalTime stime = doctor.getStartTime();
+			LocalTime etime = doctor.getEndTime();
+			
+			if(patientDoctor.getTime().isBefore(stime) || patientDoctor.getTime().isAfter(etime)) {
+			    throw new InvalidIdException("slot not available");
 			}
+
+					patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
+			return ResponseEntity.ok().body(patientDoctor);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 	// get all appointments
 	@GetMapping("/all")
@@ -65,11 +74,11 @@ public class PatientDoctorController {
 	}
 
 	// get appointments by Id
-	@GetMapping("/getone/{id}")
-	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+	@GetMapping("/getone/{pid}")
+	public ResponseEntity<?> getOne(@PathVariable("pid") int pid) {
 
 		try {
-			PatientDoctor patientDoctor = patientDoctorService.getOne(id);
+			PatientDoctor patientDoctor = patientDoctorService.getOne(pid);
 			return ResponseEntity.ok().body(patientDoctor);
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

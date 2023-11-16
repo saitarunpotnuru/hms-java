@@ -15,6 +15,7 @@ public class Doctor {
     private String name;
     private String gender;
     private String email;
+    private String Contact;
     
     
     @OneToOne
@@ -55,6 +56,14 @@ public class Doctor {
 		this.email = email;
 	}
 
+	public String getContact() {
+		return Contact;
+	}
+
+	public void setContact(String contact) {
+		Contact = contact;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -71,14 +80,11 @@ public class Doctor {
 		this.department = department;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", user=" + user
-				+ ", department=" + department + "]";
-	}
-
-	
-
-	
+		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", Contact="
+				+ Contact + ", user=" + user + ", department=" + department + "]";
+	}	
 
 }

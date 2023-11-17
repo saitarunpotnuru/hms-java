@@ -102,7 +102,7 @@ public class DoctorController {
 	}
 	
 	//updating doctors by id
-	@PutMapping("/update/{id}")  
+	@PutMapping("/update/{id}") 
 	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id,
 							@RequestBody Doctor newDoctor) {
 		try {
@@ -114,6 +114,14 @@ public class DoctorController {
 				doctor.setGender(newDoctor.getGender()); 
 			if(newDoctor.getEmail() != null) 
 				doctor.setEmail(newDoctor.getEmail()); 
+			if(newDoctor.getContact() != null) 
+				doctor.setContact(newDoctor.getContact()); 
+			if(newDoctor.getDate() != null) 
+				doctor.setDate(newDoctor.getDate()); 
+			if(newDoctor.getStartTime() != null) 
+				doctor.setStartTime(newDoctor.getStartTime());
+			if(newDoctor.getEndTime() != null) 
+				doctor.setEndTime(newDoctor.getEndTime());
 			 
 			doctor = doctorService.insertDoctor(doctor); 
 			return ResponseEntity.ok().body(doctor);

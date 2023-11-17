@@ -73,16 +73,27 @@ public class PatientDoctorController {
 		return patientDoctorService.getAllpatientDoctors(pageable);
 	}
 
-	// get appointments by Id
-	@GetMapping("/getone/{pid}")
-	public ResponseEntity<?> getOne(@PathVariable("pid") int pid) {
+	// get appointments by patientId
+	@GetMapping("/get/{patientId}")
+	public ResponseEntity<?> getBy(@PathVariable("patientId") int patientId) {
 
 		try {
-			PatientDoctor patientDoctor = patientDoctorService.getOne(pid);
-			return ResponseEntity.ok().body(patientDoctor);
+			Patient patient = patientService.getBy(patientId);
+			return ResponseEntity.ok().body(patient);
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
+	// get appointments by doctorId
+		@GetMapping("/get/{doctorId}")
+		public ResponseEntity<?> getBydid(@PathVariable("doctorId") int doctorId) {
+
+			try {
+				Doctor doctor = doctorService.getBydid(doctorId);
+				return ResponseEntity.ok().body(doctor);
+			} catch (InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+		}
 }

@@ -70,6 +70,8 @@ public class ExecutiveController {
 			Executive executive = executiveService.getOne(id);
 			if(newExecutive.getName()!=null)
 				executive.setName(newExecutive.getName());
+			if(newExecutive.getGender()!=null)
+				executive.setGender(newExecutive.getGender());
 			if(newExecutive.getContact()!= null)
 				executive.setContact(newExecutive.getContact());
 			if(newExecutive.getEmail()!=null)

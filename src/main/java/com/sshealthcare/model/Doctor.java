@@ -18,52 +18,12 @@ public class Doctor {
     private String name;
     private String gender;
     private String email;
-<<<<<<< HEAD
     private String contact;
     private LocalDate date ;
     private LocalTime startTime;
     private LocalTime endTime;
-
-=======
-    private String Contact;
->>>>>>> 703a288a9de69f4cfc538b4f9e435d1d80eada4f
     
-    
-    
-    public LocalTime getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(LocalTime startTime) {
-		this.startTime = startTime;
-	}
-
-	public LocalTime getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(LocalTime endTime) {
-		this.endTime = endTime;
-	}
-
-	public String getContact() {
-		return contact;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	@OneToOne
+    @OneToOne
     private User user;
     
     @ManyToOne
@@ -102,11 +62,35 @@ public class Doctor {
 	}
 
 	public String getContact() {
-		return Contact;
+		return contact;
 	}
 
 	public void setContact(String contact) {
-		Contact = contact;
+		this.contact = contact;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public LocalTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+
+	public LocalTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalTime endTime) {
+		this.endTime = endTime;
 	}
 
 	public User getUser() {
@@ -125,22 +109,12 @@ public class Doctor {
 		this.department = department;
 	}
 
-
 	@Override
 	public String toString() {
-<<<<<<< HEAD
 		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", contact="
 				+ contact + ", date=" + date + ", startTime=" + startTime + ", endTime=" + endTime + ", user=" + user
 				+ ", department=" + department + "]";
 	}
-
+    
 	
-
-	
-=======
-		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", Contact="
-				+ Contact + ", user=" + user + ", department=" + department + "]";
-	}	
->>>>>>> 703a288a9de69f4cfc538b4f9e435d1d80eada4f
-
 }

@@ -59,6 +59,15 @@ public class DoctorService {
 		
 	}
 
+	//appointments getting by doctorId
+	public Doctor getBydid(int doctorId) throws InvalidIdException {
+		Optional<Doctor> optional = doctorRepository.findById(doctorId);
+		if(!optional.isPresent()) {
+			throw new InvalidIdException("Doctor ID Invalid");
+		}
+		return optional.get();
+	}
+
 	
 
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Executive;
@@ -42,7 +43,7 @@ public class ExecutiveController {
 		String passwordPlain = user.getPassword();
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
 		user.setPassword(encodedPassword);
-		user.setRole("Executive");
+		user.setRole(RoleType.RECEPTIONIST);
 		user = userService.insert(user);
 		executive.setUser(user);
 		return executiveService.insert(executive);
@@ -81,6 +82,8 @@ public class ExecutiveController {
 			Executive executive = executiveService.getOne(id);
 			if(newExecutive.getName()!=null)
 				executive.setName(newExecutive.getName());
+			if(newExecutive.getGender()!=null)
+				executive.setGender(newExecutive.getGender());
 			if(newExecutive.getContact()!= null)
 				executive.setContact(newExecutive.getContact());
 			if(newExecutive.getEmail()!=null)

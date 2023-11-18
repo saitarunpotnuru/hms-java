@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 		.antMatchers(
+
 				"/patient/add","/patient/get","/patient/get/{pid}","/patient/appointment/{pid}","/patient/delete/{id}","/patient/update/{id}",
 
 				"/room/add","/room/all","/room/getone/{id}",
@@ -39,17 +40,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
 
-				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}",
+
+				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
 				
-				"/executive/add","/executive/get",
+				"/room/add","/room/all","/room/getone/{id}",
+				
+				"/executive/add","/executive/get","/executive/get/{id}","/executive/update/{id}",
+				
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/get/{patientId}","/appointment/get/{doctorId}",
+				
+
+				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}",
 				
 				"/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}","/receptionist/delete/{id}",
 				
 				"/admission/add/{rid}/{patientId}/{did}","/admission/all","/admission/getone/{id}","/admission/update/{id}",
-	
-				"/room/add","/room/all","/room/getone/{id}",
-				
-				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
 				
 				"/department/add","/department/get","/department/get/{did}",
 				

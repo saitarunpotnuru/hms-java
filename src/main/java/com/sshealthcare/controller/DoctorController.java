@@ -1,12 +1,10 @@
 package com.sshealthcare.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Doctor;
@@ -70,7 +69,7 @@ public class DoctorController {
 			String encodedPassword = passwordEncoder.encode(passwordPlain);
 			user.setPassword(encodedPassword);
 
-			user.setRole("DOCTOR");
+			user.setRole(RoleType.DOCTOR);
 			user = userService.insert(user);
 			// attach the saved user(in step 1)
 			doctor.setUser(user);
@@ -114,12 +113,12 @@ public class DoctorController {
 	}
 
 	
-	
-	
-	
-	// updating doctors by id
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id, @RequestBody Doctor newDoctor) {
+
+
+	//updating doctors by id
+	@PutMapping("/update/{id}") 
+	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id,
+							@RequestBody Doctor newDoctor) {
 		try {
 			// validate id
 			Doctor doctor = doctorService.getOne(id);
@@ -131,6 +130,21 @@ public class DoctorController {
 				doctor.setEmail(newDoctor.getEmail());
 
 			doctor = doctorService.insertDoctor(doctor);
+
+			if(newDoctor.getGender() != null) 
+				doctor.setGender(newDoctor.getGender()); 
+			if(newDoctor.getEmail() != null) 
+				doctor.setEmail(newDoctor.getEmail()); 
+			if(newDoctor.getContact() != null) 
+				doctor.setContact(newDoctor.getContact()); 
+			if(newDoctor.getDate() != null) 
+				doctor.setDate(newDoctor.getDate()); 
+			if(newDoctor.getStartTime() != null) 
+				doctor.setStartTime(newDoctor.getStartTime());
+			if(newDoctor.getEndTime() != null) 
+				doctor.setEndTime(newDoctor.getEndTime());
+			 
+			doctor = doctorService.insertDoctor(doctor); 
 			return ResponseEntity.ok().body(doctor);
 
 		} catch (InvalidIdException e) {

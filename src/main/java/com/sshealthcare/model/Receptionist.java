@@ -15,8 +15,8 @@ public class Receptionist {
     private String gender;
     private String contact;
     private String email;
-    
-    @OneToOne
+
+	@OneToOne
     private User user;
 
 	public int getId() {
@@ -67,13 +67,14 @@ public class Receptionist {
 		this.user = user;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Receptionist [Id=" + Id + ", name=" + name + ", gender=" + gender + ", contact=" + contact + ", email="
 				+ email + ", user=" + user + "]";
 	}
-    
-    
-   
 
+
+
+	
 }

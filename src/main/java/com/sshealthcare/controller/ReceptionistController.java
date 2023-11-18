@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Receptionist;
@@ -55,7 +56,7 @@ public class ReceptionistController {
 			String encodedPassword = passwordEncoder.encode( passwordPlain);
 			user.setPassword(encodedPassword);
 			
-			user.setRole("Receptionist");
+			user.setRole(RoleType.RECEPTIONIST);
 			user = userService.insert(user);
 			
 			// attach the saved user(in step 1)
@@ -80,10 +81,7 @@ public class ReceptionistController {
 		return receptionistService.getAllreceptionists(pageable);
 	}
 	
-	
-	
-	
-	
+
 	//get receptionist by id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -98,9 +96,6 @@ public class ReceptionistController {
 	
 
 	
-	
-	
-	
 	//update receptionists by Id
 	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
 	public ResponseEntity<?> updateReceptionist(@PathVariable("id") int id,
@@ -110,6 +105,8 @@ public class ReceptionistController {
 			Receptionist Receptionist = receptionistService.getOne(id);
 			if(newReceptionist.getName() != null)
 				Receptionist.setName(newReceptionist.getName());
+			if(newReceptionist.getGender() != null)
+				Receptionist.setGender(newReceptionist.getGender());
 			if(newReceptionist.getContact() != null) 
 				Receptionist.setContact(newReceptionist.getContact()); 
 			if(newReceptionist.getEmail() != null) 

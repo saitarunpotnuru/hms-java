@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.PatientDoctor;
@@ -49,7 +50,7 @@ public class PatientController {
 		String passwordPlain = user.getPassword();
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
 		user.setPassword(encodedPassword);
-		user.setRole("PATIENT");
+		user.setRole(RoleType.PATIENT);
 		user = userService.insert(user);
 		// attach the saved user(in step 1)
 		patient.setUser(user);
@@ -84,22 +85,23 @@ public class PatientController {
 
 		
 
-	// update patient
-
+	
+	//update patient
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updatePatient(@PathVariable("id") int id, @RequestBody Patient newPatient)
-			throws InvalidIdException {
-		Patient patient = patientService.update(id);
-		if (newPatient.getName() != null)
-			patient.setName(newPatient.getName());
-		if (newPatient.getAge() != 0)
-			patient.setAge(newPatient.getAge());
-		if (newPatient.getGender() != null)
-			patient.setGender(newPatient.getGender());
-		if (newPatient.getContact() != null)
-			patient.setContact(newPatient.getContact());
-		if (newPatient.getEmail() != null)
-			patient.setEmail(newPatient.getEmail());
-		return ResponseEntity.ok().body(patient);
-	}
-}
+	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
+			@RequestBody Patient newPatient) throws InvalidIdException {
+	Patient patient = patientService.getById(id);
+	if(newPatient.getName()!=null)
+		patient.setName(newPatient.getName());
+	if(newPatient.getAge()!=0)
+		patient.setAge(newPatient.getAge());
+	if(newPatient.getGender()!=null)
+		patient.setGender(newPatient.getGender());
+	if(newPatient.getContact()!=null)
+		patient.setContact(newPatient.getContact());
+	if(newPatient.getEmail()!=null)
+		patient.setEmail(newPatient.getEmail());
+	return ResponseEntity.ok().body(patient);
+	}	
+
+}	

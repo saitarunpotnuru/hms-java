@@ -37,10 +37,6 @@ public class PatientDoctorController {
 	@Autowired
 	private PatientService patientService;
 
-	
-	
-	
-	
 	// adding appointments
 	@PostMapping("/add/{pid}/{did}")
 	public ResponseEntity<?> insertAppointment(@PathVariable("pid") int pid, @PathVariable("did") int did,
@@ -66,11 +62,6 @@ public class PatientDoctorController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	
-	
-	
-	
 
 	// get all appointments
 	@GetMapping("/all")
@@ -82,4 +73,27 @@ public class PatientDoctorController {
 		return patientDoctorService.getAllpatientDoctors(pageable);
 	}
 
+	// get appointments by patientId
+	@GetMapping("/get/{patientId}")
+	public ResponseEntity<?> getBy(@PathVariable("patientId") int patientId) {
+
+		try {
+			Patient patient = patientService.getBy(patientId);
+			return ResponseEntity.ok().body(patient);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	// get appointments by doctorId
+	@GetMapping("/get/{doctorId}")
+	public ResponseEntity<?> getBydid(@PathVariable("doctorId") int doctorId) {
+
+		try {
+			Doctor doctor = doctorService.getBydid(doctorId);
+			return ResponseEntity.ok().body(doctor);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

@@ -25,6 +25,7 @@ public class Doctor {
     private LocalTime endTime;
     
 
+
 	@OneToOne
     private User user;
     
@@ -63,7 +64,21 @@ public class Doctor {
 		this.email = email;
 	}
 
-	
+	public String getAppointmentStatus() {
+		return appointmentStatus;
+	}
+
+	public void setAppointmentStatus(String appointmentStatus) {
+		this.appointmentStatus = appointmentStatus;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
 	public LocalDate getDate() {
 		return date;
@@ -89,7 +104,6 @@ public class Doctor {
 		this.endTime = endTime;
 	}
 
-
 	public User getUser() {
 		return user;
 	}
@@ -106,22 +120,6 @@ public class Doctor {
 		this.department = department;
 	}
 
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	public String getAppointmentStatus() {
-		return appointmentStatus;
-	}
-
-	public void setAppointmentStatus(String appointmentStatus) {
-		this.appointmentStatus = appointmentStatus;
-	}
-
 	@Override
 	public String toString() {
 		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email
@@ -129,11 +127,9 @@ public class Doctor {
 				+ ", startTime=" + startTime + ", endTime=" + endTime + ", user=" + user + ", department=" + department
 				+ "]";
 	}
-
-	
-
     
     
     
     
 }
+

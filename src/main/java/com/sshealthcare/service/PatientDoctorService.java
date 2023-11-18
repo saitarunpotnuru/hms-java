@@ -17,7 +17,7 @@ public class PatientDoctorService {
 	@Autowired
 	private PatientDoctorRepository patientDoctorRepository;
 	
-	//adding
+	//adding appointments
 	public PatientDoctor assignPatientDoctor(PatientDoctor patientDoctor) {
 		return patientDoctorRepository.save(patientDoctor);
 	}
@@ -26,9 +26,10 @@ public class PatientDoctorService {
 		return patientDoctorRepository.findAll(pageable).getContent();
 	}
 	
-	//get by pid
-	public PatientDoctor getOne(int pid) throws InvalidIdException {
-		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(pid);
+	
+
+	public PatientDoctor getBy(int patientId) throws InvalidIdException {
+		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(patientId);
 		if(!optional.isPresent()){
 			throw new InvalidIdException("Patient ID Invalid");
 		

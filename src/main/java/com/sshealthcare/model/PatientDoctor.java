@@ -5,11 +5,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.sshealthcare.enums.StatusType;
 @Entity
 @Table(name = "appointment")
 public class PatientDoctor {
@@ -26,7 +30,16 @@ public class PatientDoctor {
     
     private LocalTime time;
     
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
+    
+    public StatusType getStatus() {
+		return status;
+	}
+	public void setStatus(StatusType status) {
+		this.status = status;
+	}
+	@ManyToOne
     private Patient patient;
     
     @ManyToOne
@@ -78,7 +91,7 @@ public class PatientDoctor {
 	@Override
 	public String toString() {
 		return "PatientDoctor [Id=" + Id + ", prescriptionDetails=" + prescriptionDetails + ", fee=" + fee + ", date="
-				+ date + ", time=" + time + ", patient=" + patient + ", doctor=" + doctor + "]";
+				+ date + ", time=" + time + ", status=" + status + ", patient=" + patient + ", doctor=" + doctor + "]";
 	}
 	
 	

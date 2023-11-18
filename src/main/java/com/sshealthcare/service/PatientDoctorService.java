@@ -37,6 +37,14 @@ public class PatientDoctorService {
 		return optional.get();
 	
 }
+	public  PatientDoctor getByAid(int aid) throws InvalidIdException{
+		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(aid);
+		if(!optional.isPresent()){
+			throw new InvalidIdException("Patient ID Invalid");
+		
+	}
+		return optional.get();
+	}
 
 	
 

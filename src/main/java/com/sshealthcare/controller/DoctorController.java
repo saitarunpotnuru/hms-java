@@ -21,10 +21,12 @@ import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Doctor;
+import com.sshealthcare.model.PatientDoctor;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.DepartmentService;
 import com.sshealthcare.service.DoctorService;
 import com.sshealthcare.service.ExecutiveService;
+import com.sshealthcare.service.PatientDoctorService;
 import com.sshealthcare.service.UserService;
 
 @RestController
@@ -37,14 +39,15 @@ public class DoctorController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private ExecutiveService executiveService;
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private DepartmentService departmentService;
+	
+	@Autowired
+	private PatientDoctorService patientDoctorService;
 
 	
 	
@@ -146,6 +149,34 @@ public class DoctorController {
 			 
 			doctor = doctorService.insertDoctor(doctor); 
 			return ResponseEntity.ok().body(doctor);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
+	
+	
+	@PutMapping("/updateAppointment/{Aid}") 
+	public ResponseEntity<?> updateAppointment(@PathVariable("Aid") int Aid,
+							@RequestBody PatientDoctor patientDoctor) {
+		try {
+			// validate id
+			PatientDoctor patientDoctor2 = patientDoctorService.getByAid(Aid);
+			if (patientDoctor.getPrescriptionDetails() != null)
+				patientDoctor2.setPrescriptionDetails(patientDoctor.getPrescriptionDetails());
+			if (patientDoctor.getFee() != null)
+				patientDoctor2.setFee(patientDoctor.getFee());
+			if (patientDoctor.getDate() != null)
+				patientDoctor2.setDate(patientDoctor.getDate());
+			if (patientDoctor.getTime() != null)
+				patientDoctor2.setTime(patientDoctor.getTime());
+			if (patientDoctor.getStatus() != null)
+				patientDoctor2.setStatus(patientDoctor.getStatus());
+			
+			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor2); 
+			return ResponseEntity.ok().body(patientDoctor2);
 
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

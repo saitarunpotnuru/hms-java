@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
+import com.sshealthcare.enums.StatusType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.model.Room;
+import com.sshealthcare.model.User;
 import com.sshealthcare.service.RoomService;
 
 @RestController

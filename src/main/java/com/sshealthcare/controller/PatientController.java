@@ -81,12 +81,12 @@ public class PatientController {
 			}
 		}
 
-		
+}
 
 		
-
-	
-	//update patient
+/*
+ * 
+ * //update patient
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
 			@RequestBody Patient newPatient) throws InvalidIdException {
@@ -105,3 +105,7 @@ public class PatientController {
 	}	
 
 }	
+
+*/
+	
+	

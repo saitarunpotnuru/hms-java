@@ -6,4 +6,6 @@ import com.sshealthcare.model.Patient;
 
 public interface PatientRepository extends JpaRepository<Patient, Integer>{
 
+	Patient save(int id);
+
 }

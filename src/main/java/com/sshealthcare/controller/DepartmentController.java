@@ -22,44 +22,55 @@ import com.sshealthcare.service.DepartmentService;
 public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
+
 	
 	
-	//adding department
+	
+	// adding department
 	@PostMapping("/add")
 	public Department insertDepartment(@RequestBody Department department) {
 		return departmentService.insert(department);
 	}
+
 	
-	//getting department
+	
+	
+	// getting department
 	@GetMapping("/get")
-	public List<Department> getAlldepartments(){
+	public List<Department> getAlldepartments() {
 		return departmentService.getAll();
 	}
+
 	
-	//get department by id
-		@GetMapping("/get/{id}")
-		public ResponseEntity<?> getOne(@PathVariable("id")int id) {
-			try {
-				Department department = departmentService.getOne(id);
-				return ResponseEntity.ok().body(department);
-			}catch(InvalidIdException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+	
+	
+	// get department by id
+	@GetMapping("/get/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+		try {
+			Department department = departmentService.getOne(id);
+			return ResponseEntity.ok().body(department);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		
-		//update department
-		@PutMapping("/update/{id}")
-		public ResponseEntity<?> getOne(@PathVariable("id")int id,@RequestBody Department newdeDepartment) {
-			try {
-				Department department = departmentService.getOne(id);
-				if(newdeDepartment.getName()!=null)
-					department.setName(newdeDepartment.getName());
-				
-				department = departmentService.insert(department);
-				return ResponseEntity.ok().body(department);
-			}catch(InvalidIdException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+	}
+
+	
+	
+	
+	// update department
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id, @RequestBody Department newdeDepartment) {
+		try {
+			Department department = departmentService.getOne(id);
+			if (newdeDepartment.getName() != null)
+				department.setName(newdeDepartment.getName());
+
+			department = departmentService.insert(department);
+			return ResponseEntity.ok().body(department);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
 
 }

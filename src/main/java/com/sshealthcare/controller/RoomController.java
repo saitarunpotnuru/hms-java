@@ -27,11 +27,17 @@ public class RoomController {
 	@Autowired
 	public RoomService roomService;
 	
+	
+	
+	
 	//adding rooms
 	@PostMapping("/add")
 	public Room inserRoom(@RequestBody Room room) {
 		return roomService.insert(room);
 	}
+	
+	
+	
 	
 	//getting all rooms
 	@GetMapping("/all")
@@ -42,6 +48,9 @@ public class RoomController {
 		Pageable pageable =  PageRequest.of(page, size);
 		return roomService.getAllrooms(pageable);
 	}
+	
+	
+	
 	
 	//getting rooms by Id
 	@GetMapping("/getone/{id}")

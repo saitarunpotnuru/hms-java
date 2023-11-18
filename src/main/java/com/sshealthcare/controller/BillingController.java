@@ -29,86 +29,88 @@ import com.sshealthcare.service.PatientService;
 @RestController
 @RequestMapping("/billing")
 public class BillingController {
+
+	@Autowired
+	private BillingService billingService;
+
+	@Autowired
+	private PatientService patientService;
+
+	@Autowired
+	private AdmissionService admissionService;
+
+	@Autowired
+	private DoctorService doctorService;
+
+	// adding bill with admissionId, patientId, doctorId
+	@PostMapping("/add/{admissionId}/{pid}/{did}")
+	public ResponseEntity<?> assignBilling(@PathVariable("admissionId") int admissionId, @PathVariable("pid") int pid,
+			@PathVariable("did") int did, @RequestBody Billing billing) {
+
+		try {
+
+			Admission admission = admissionService.getById(admissionId);
+			billing.setAdmission(admission);
+
+			Patient patient = patientService.getone(pid);
+			billing.setPatient(patient);
+
+			Doctor doctor = doctorService.getById(did);
+			billing.setDoctor(doctor);
+
+			billing = billingService.assignBilling(billing);
+
+			return ResponseEntity.ok().body(billing);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	// getting all billings
+	@GetMapping("/all")
+	public List<Billing> getAllBillings(
+			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(value = "size", required = false, defaultValue = "1000000") Integer size) {
+
+		Pageable pageable = PageRequest.of(page, size);
+		return billingService.getAllbillings(pageable);
+	}
+
 	
-	@Autowired 
-    private BillingService billingService;
+	
+	
+	// getting billings by Id
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
 
-    @Autowired
-    private PatientService patientService;
-    
-    @Autowired
-    private AdmissionService admissionService;
-    
-    @Autowired
-    private DoctorService doctorService;
+		try {
+			Billing billing = billingService.getOne(id);
+			return ResponseEntity.ok().body(billing);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
-    //adding bill with admissionId, patientId, doctorId
-    @PostMapping("/add/{admissionId}/{pid}/{did}")
-    public ResponseEntity<?> assignBilling(@PathVariable("admissionId") int admissionId,
-    		@PathVariable("pid") int pid, @PathVariable("did") int did, 
-    		@RequestBody Billing billing) {
-    	
-        try {
-        	
-        	Admission admission = admissionService.getById(admissionId);
-            billing.setAdmission(admission);
-            
-            Patient patient = patientService.getone(pid);
-            billing.setPatient(patient);
-            
-            Doctor doctor = doctorService.getById(did);
-            billing.setDoctor(doctor);
+	
+	
+	
+	// update billings
+	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update
+	public ResponseEntity<?> updateBilling(@PathVariable("id") int id, @RequestBody Billing newBilling) {
+		try {
+			// validate id
+			Billing Billing = billingService.getOne(id);
+			if (newBilling.getBillAmount() != 0)
+				Billing.setBillAmount(newBilling.getBillAmount());
+			if (newBilling.getPaymentStatus() != null)
+				Billing.setPaymentStatus(newBilling.getPaymentStatus());
 
-    		billing = billingService.assignBilling(billing);
+			Billing = billingService.insertReceptionist(Billing);
+			return ResponseEntity.ok().body(Billing);
 
-            return ResponseEntity.ok().body(billing);
-        } catch (InvalidIdException e) {
-            return 
-            		ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-    
-  //getting all billings
-  	@GetMapping("/all")
-  	public List<Billing> getAllBillings(
-  			@RequestParam(value="page",required = false,defaultValue = "0") Integer page,
-  			@RequestParam(value="size",required = false,defaultValue = "1000000") Integer size) {
-  		
-  		Pageable pageable =  PageRequest.of(page, size);
-  		return billingService.getAllbillings(pageable);
-  	}
-  	
-  //getting billings by Id
-  	@GetMapping("/getone/{id}")
-  	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
-
-  		try {
-  			Billing billing = billingService.getOne(id);
-  			return ResponseEntity.ok().body(billing);
-  		} catch (InvalidIdException e) {
-  			return ResponseEntity.badRequest().body(e.getMessage());
-  		}
-  	}
-  	
-  //update billings
-  	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
-  	public ResponseEntity<?> updateBilling(@PathVariable("id") int id,
-  							@RequestBody Billing newBilling) {
-  		try {
-  			//validate id
-  			Billing Billing = billingService.getOne(id);
-  			if(newBilling.getBillAmount() != 0)
-  				Billing.setBillAmount(newBilling.getBillAmount());
-  			if(newBilling.getPaymentStatus() != null) 
-  				Billing.setPaymentStatus(newBilling.getPaymentStatus()); 
-  			
-  			 
-  			Billing = billingService.insertReceptionist(Billing); 
-  			return ResponseEntity.ok().body(Billing);
-
-  		} catch (InvalidIdException e) {
-  			return ResponseEntity.badRequest().body(e.getMessage());
-  		}
-  }
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 }

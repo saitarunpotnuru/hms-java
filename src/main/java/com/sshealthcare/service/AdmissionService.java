@@ -19,7 +19,7 @@ public class AdmissionService {
 	private AdmissionRepository admissionRepository;
 	
 	//adding
-	public Admission assignAdmission(Admission admission) {
+	public Admission save(Admission admission) {
 		
 		return admissionRepository.save(admission);
 	}

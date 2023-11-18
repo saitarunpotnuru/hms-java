@@ -21,20 +21,27 @@ public class PatientDoctorService {
 	public PatientDoctor assignPatientDoctor(PatientDoctor patientDoctor) {
 		return patientDoctorRepository.save(patientDoctor);
 	}
-
+	//getall
 	public List<PatientDoctor> getAllpatientDoctors(Pageable pageable) {
 		return patientDoctorRepository.findAll(pageable).getContent();
 	}
-
+	
+	//get by pid
 	public PatientDoctor getOne(int pid) throws InvalidIdException {
 		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(pid);
 		if(!optional.isPresent()){
-			throw new InvalidIdException("Receptionist ID Invalid");
+			throw new InvalidIdException("Patient ID Invalid");
 		
 	}
 		return optional.get();
 	
 }
+
+	
+
+	
+
+	
 }
 
 	

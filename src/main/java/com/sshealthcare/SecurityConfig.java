@@ -3,6 +3,7 @@ package com.sshealthcare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,14 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 		.antMatchers(
-				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
-<<<<<<< HEAD
+				"/patient/add","/patient/get","/patient/get/{pid}","/patient/appointment/{pid}","/patient/delete/{id}","/patient/update/{id}",
+
 				"/room/add","/room/all","/room/getone/{id}",
-				"/executive/add","/executive/get","/executive/get/{id}",
-				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
-=======
 				
->>>>>>> 1acdb56b8539fde3dd5412298ca248a107263aba
+				"/executive/add","/executive/get","/executive/get/{id}",
+				
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
+
 				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}",
 				
 				"/executive/add","/executive/get",
@@ -53,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/department/add","/department/get","/department/get/{did}",
 				
 				"/billing/add/{admissionId}/{pid}/{did}","/billing/all","/billing/getone/{id}","/billing/update/{id}").permitAll()
+		
 		
 		.anyRequest().authenticated()
 		.and()

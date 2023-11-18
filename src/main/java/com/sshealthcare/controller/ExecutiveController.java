@@ -31,6 +31,9 @@ public class ExecutiveController {
 	@Autowired
 	private UserService userService;
 
+	
+	
+	
 	// adding executive
 	@PostMapping("/add")
 
@@ -46,11 +49,16 @@ public class ExecutiveController {
 
 	}
 
+	
+	
+	
 	// get executive
 	@GetMapping("/get")
 	public List<Executive> getAllexecutive() {
 		return executiveService.getAll();
 	}
+	
+	
 
 	// get executive by id
 	@GetMapping("/get/{id}")
@@ -62,6 +70,9 @@ public class ExecutiveController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	
+	
 
 	// update executive
 	@PutMapping("/update/{id}")

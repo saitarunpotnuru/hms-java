@@ -26,7 +26,7 @@ public class PatientService {
 	}
 
 
-	//getting
+	//get al
 	public List<Patient> getAll() {
 		List<Patient> patient = patientRepository.findAll();
 		return patient;
@@ -42,11 +42,25 @@ public class PatientService {
 	}
 
 
-	public Patient getById(int id) {
-		return patientRepository.getById(id);
-		
+	public Patient update(int id) {
+		patientRepository.save(id);
+		return null;
 	}
 
+
+	
+
+	
+	
+
+
+
+
+
+	
+
+	
+	
 
 	
 }

@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/get/{patientId}","/appointment/get/{doctorId}",
 				
 
-				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}","/doctor/updateAppointment/{Aid}",
+				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}","/appointment/Appointment/{pdid}",
 				
 				"/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}","/receptionist/delete/{id}",
 				

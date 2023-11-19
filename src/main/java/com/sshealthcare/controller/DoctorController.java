@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
@@ -25,8 +26,8 @@ import com.sshealthcare.model.PatientDoctor;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.DepartmentService;
 import com.sshealthcare.service.DoctorService;
-import com.sshealthcare.service.ExecutiveService;
 import com.sshealthcare.service.PatientDoctorService;
+import com.sshealthcare.service.PatientService;
 import com.sshealthcare.service.UserService;
 
 @RestController
@@ -48,6 +49,9 @@ public class DoctorController {
 	
 	@Autowired
 	private PatientDoctorService patientDoctorService;
+	
+	@Autowired
+	private PatientService patientService;
 
 	
 	
@@ -183,6 +187,14 @@ public class DoctorController {
 		}
 	}
 	
+	
+	
+	
+		
+		
+
+				
+		
 	
 	
 	

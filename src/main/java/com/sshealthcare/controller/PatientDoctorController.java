@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.enums.StatusType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
@@ -97,5 +99,39 @@ public class PatientDoctorController {
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	
+	
+	@PutMapping("/Appointment/{pdid}")
+	public ResponseEntity<?> updateAppointment(@PathVariable ("pdid")int pdid,
+			@RequestBody PatientDoctorDto  patientDoctorDto) {
+		
+		try {
+			PatientDoctor patientDoctor = patientDoctorService.getBypdId(pdid);
+			
+			/*if (patientDoctorDto.getPrescriptionDetails() != null) {
+            patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());*/
+			if (patientDoctorDto.getPrescriptionDetails() != null) {
+                patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());
+            }
+
+            // Update other properties (fee, time, date) if non-null
+            if (patientDoctorDto.getFee() != null) {
+                patientDoctor.setFee(patientDoctorDto.getFee());
+            }
+            if (patientDoctorDto.getTime() != null) {
+                patientDoctor.setTime(patientDoctorDto.getTime());
+            }
+            if (patientDoctorDto.getDate() != null) {
+                patientDoctor.setDate(patientDoctorDto.getDate());
+            }
+			patientDoctor = patientDoctorService.postPatientDoctor(patientDoctor);
+			return ResponseEntity.ok().body(patientDoctor);
+			
+		}catch(InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 }

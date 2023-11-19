@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.PatientDoctor;
 import com.sshealthcare.model.Receptionist;
@@ -45,6 +46,18 @@ public class PatientDoctorService {
 	}
 		return optional.get();
 	}
+	public PatientDoctor getBypdId(int pdid) throws InvalidIdException{
+		Optional<PatientDoctor> optional = patientDoctorRepository.findBy(pdid);
+		if(!optional.isPresent()) {
+			throw new InvalidIdException("invalid pdid");
+		}
+		return optional.get();
+	}
+	public PatientDoctor postPatientDoctor(PatientDoctor patientDoctor) {
+		// TODO Auto-generated method stub
+		return patientDoctorRepository.save(patientDoctor);
+	}
+	
 
 	
 

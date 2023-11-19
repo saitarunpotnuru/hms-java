@@ -49,34 +49,31 @@ public class PatientService {
 		}
 		return optional.get();
 	}
-
-
-	public Patient update(int id) {
-		patientRepository.save(id);
-		return null;
-	}
-
-
 	
+	//appointments getting by patientId
+		public Patient getById1(int id) throws InvalidIdException {
+			Optional<Patient> optional = patientRepository.findById1(id);
+			if(!optional.isPresent()) {
+				throw new InvalidIdException("Patient ID Invalid");
+			}
+			return optional.get();
+		}
 
-	
-	
 
-
-
-
-
-	
-
-	
-	
-
-	
 	public Patient getById(int id) {
 		return patientRepository.getById(id);
 		
 		
 	}
+
+
+	public Patient getByPatient(int pid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 }
 
 

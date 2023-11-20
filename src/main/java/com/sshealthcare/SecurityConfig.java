@@ -3,6 +3,7 @@ package com.sshealthcare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,15 +31,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 		.antMatchers(
+
+				"/patient/add","/patient/get","/patient/get/{pid}","/patient/appointment/{pid}","/patient/delete/{id}","/patient/update/{id}",
+
+				"/room/add","/room/all","/room/getone/{id}",
+				
+				"/executive/add","/executive/get","/executive/get/{id}",
+				
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
+
+
 				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
 				
 				"/room/add","/room/all","/room/getone/{id}",
 				
 				"/executive/add","/executive/get","/executive/get/{id}","/executive/update/{id}",
 				
-				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/get/{patientId}","/appointment/get/{doctorId}",
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getOne/{pid}","/appointment/get/{doctorId}",
 				
-				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}",
+
+				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}","/appointment/Appointment/{pdid}",
 				
 				"/receptionist/add","/receptionist/all","/receptionist/getone/{id}","/receptionist/update/{id}","/receptionist/delete/{id}",
 				
@@ -47,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/department/add","/department/get","/department/get/{did}",
 				
 				"/billing/add/{admissionId}/{pid}/{did}","/billing/all","/billing/getone/{id}","/billing/update/{id}").permitAll()
+		
 		
 		.anyRequest().authenticated()
 		.and()

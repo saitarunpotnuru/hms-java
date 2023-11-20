@@ -26,7 +26,7 @@ public class PatientService {
 	}
 
 
-	//getting
+	//get all
 	public List<Patient> getAll() {
 		List<Patient> patient = patientRepository.findAll();
 		return patient;
@@ -40,15 +40,7 @@ public class PatientService {
 			throw new InvalidIdException ("invalid patient id");
 		return optional.get();
 	}
-
-	//appointments getting by patientId
-	public Patient getBy(int patientId) throws InvalidIdException {
-		Optional<Patient> optional = patientRepository.findById(patientId);
-		if(!optional.isPresent()) {
-			throw new InvalidIdException("Patient ID Invalid");
-		}
-		return optional.get();
-	}
+	
 
 	//updating a patient by id
 	public Patient insertPatient(Patient patient) {
@@ -61,6 +53,13 @@ public class PatientService {
 		patientRepository.delete(patient);
 		
 	}
+
+	public Patient getByPatient(int pid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 }
 

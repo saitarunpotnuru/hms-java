@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.dto.PatientDto;
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
@@ -39,42 +41,45 @@ public class PatientController {
 	@Autowired
 	private UserService userService;
 
+	
+	
+	
 	// adding patient
 	@PostMapping("/add")
 	public Patient insertPatient(@RequestBody Patient patient) {
-
 		// save user info in db
 		User user = patient.getUser();
 		// encrypting the password
 		String passwordPlain = user.getPassword();
-
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
 		user.setPassword(encodedPassword);
-		user.setRole("PATIENT");
+		user.setRole(RoleType.PATIENT);
 		user = userService.insert(user);
+		// attach the saved user(in step 1)
 		patient.setUser(user);
-
 		return patientService.insert(patient);
-
 	}
 
+	
 	// get all patients
 	@GetMapping("/get")
 	public List<Patient> getAllPatients() {
 		return patientService.getAll();
 	}
-	
+
 	
 	//get patient by id
-	@GetMapping("/get/{pid}")
-	public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
+		@GetMapping("/get/{pid}")
+		public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
 		try {
+
 			Patient patient = patientService.getOne(pid);
 			return ResponseEntity.ok().body(patient);
 		}catch(InvalidIdException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+		return ResponseEntity.badRequest().body(e.getMessage());
+			}
 		}
-	}
+
 	
 	//update patient by id
 	@PutMapping("/update/{id}") 
@@ -92,9 +97,7 @@ public class PatientController {
 			if(newPatient.getEmail() != null) 
 				patient.setEmail(newPatient.getEmail()); 
 			if(newPatient.getContact() != null) 
-				patient.setContact(newPatient.getContact());  
-			
-			 
+				patient.setContact(newPatient.getContact());   
 			patient = patientService.insertPatient(patient); 
 			return ResponseEntity.ok().body(patient);
 
@@ -114,3 +117,10 @@ public class PatientController {
 		return ResponseEntity.ok().body("Patient deleted successfully");
 	}
 }	
+
+
+
+
+		
+ 
+

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sshealthcare.dto.DoctorDto;
+import com.sshealthcare.dto.PatientDto;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Receptionist;
@@ -68,6 +70,22 @@ public class DoctorService {
 		}
 		return optional.get();
 	}
+	
+	
+	//appointments getting by doctorId
+		public Doctor getByDoctor(int did) throws InvalidIdException {
+			Optional<Doctor> optional = doctorRepository.findById1(did);
+			if(!optional.isPresent()) {
+				throw new InvalidIdException("Doctor ID Invalid");
+			}
+			return optional.get();
+		}
+
+
+
+	
+
+	
 
 	
 }

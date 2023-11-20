@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Receptionist;
@@ -37,6 +38,10 @@ public class ReceptionistController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	
+	
+	
+	
 	//adding all receptionists
 	@PostMapping("/add")
 	
@@ -51,7 +56,7 @@ public class ReceptionistController {
 			String encodedPassword = passwordEncoder.encode( passwordPlain);
 			user.setPassword(encodedPassword);
 			
-			user.setRole("Receptionist");
+			user.setRole(RoleType.RECEPTIONIST);
 			user = userService.insert(user);
 			
 			// attach the saved user(in step 1)
@@ -60,6 +65,11 @@ public class ReceptionistController {
 			return receptionistService.insert(receptionist);
 			
 	}
+	
+	
+	
+	
+	
 	
 	//getting all receptionists
 	@GetMapping("/all")
@@ -71,6 +81,7 @@ public class ReceptionistController {
 		return receptionistService.getAllreceptionists(pageable);
 	}
 	
+
 	//get receptionist by id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -108,6 +119,9 @@ public class ReceptionistController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 }
+	
+	
+	
 	
 	//deleting a Receptionist
 			@DeleteMapping("/delete/{id}")

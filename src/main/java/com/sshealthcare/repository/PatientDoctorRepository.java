@@ -1,9 +1,22 @@
 package com.sshealthcare.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.model.PatientDoctor;
 
 public interface PatientDoctorRepository extends JpaRepository<PatientDoctor, Integer>{
+	@Query(value = "select * from appointment where id = ?1",nativeQuery = true)
+	Optional<PatientDoctor> findBy(int pdid);
+
+
+
+
+
+	
 
 }

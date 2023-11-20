@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Executive;
@@ -31,6 +32,9 @@ public class ExecutiveController {
 	@Autowired
 	private UserService userService;
 
+	
+	
+	
 	// adding executive
 	@PostMapping("/add")
 
@@ -39,18 +43,23 @@ public class ExecutiveController {
 		String passwordPlain = user.getPassword();
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
 		user.setPassword(encodedPassword);
-		user.setRole("Executive");
+		user.setRole(RoleType.RECEPTIONIST);
 		user = userService.insert(user);
 		executive.setUser(user);
 		return executiveService.insert(executive);
 
 	}
 
+	
+	
+	
 	// get executive
 	@GetMapping("/get")
 	public List<Executive> getAllexecutive() {
 		return executiveService.getAll();
 	}
+	
+	
 
 	// get executive by id
 	@GetMapping("/get/{id}")
@@ -62,6 +71,9 @@ public class ExecutiveController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	
+	
 
 	// update executive
 	@PutMapping("/update/{id}")

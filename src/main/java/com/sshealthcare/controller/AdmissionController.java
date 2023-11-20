@@ -40,6 +40,8 @@ public class AdmissionController {
 
 	@Autowired
 	private AdmissionService admissionService;
+	
+	
 
 	// adding admissions with roomId, patientId, DoctorId
 	@PostMapping("/add/{rid}/{patientId}/{did}")
@@ -65,7 +67,7 @@ public class AdmissionController {
 			admission.setDoctor(doctor);
 			
 			// save the product in DB
-			admission = admissionService.assignAdmission(admission);
+			admission = admissionService.save(admission);
 			
 			return ResponseEntity.ok().body(admission);
 		} catch (InvalidIdException e) {
@@ -74,6 +76,10 @@ public class AdmissionController {
 		}
 
 	}
+	
+	
+	
+	
 
 	// getting all admissions
 	@GetMapping("/all")
@@ -97,7 +103,8 @@ public class AdmissionController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	
+	
 	// updating admissions by id
 	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update
 	public ResponseEntity<?> updateAdmission(@PathVariable("id") int id, @RequestBody Admission newAdmission) {

@@ -11,12 +11,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.dto.PatientDoctorDto;
+import com.sshealthcare.dto.PatientDto;
+import com.sshealthcare.enums.StatusType;
 import com.sshealthcare.exception.InvalidIdException;
+import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.PatientDoctor;
@@ -51,12 +56,13 @@ public class PatientDoctorController {
 
 			LocalTime stime = doctor.getStartTime();
 			LocalTime etime = doctor.getEndTime();
-			
-			if(patientDoctor.getTime().isBefore(stime) || patientDoctor.getTime().isAfter(etime)) {
-			    throw new InvalidIdException("slot not available");
-			}
 
-					patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
+			if (patientDoctor.getTime().isBefore(stime) || patientDoctor.getTime().isAfter(etime)) {
+				throw new InvalidIdException("slot not available");
+			}
+			patientDoctor.setStatus(StatusType.PENDING);
+
+			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
 			return ResponseEntity.ok().body(patientDoctor);
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -72,28 +78,51 @@ public class PatientDoctorController {
 		Pageable pageable = PageRequest.of(page, size);
 		return patientDoctorService.getAllpatientDoctors(pageable);
 	}
-
-	// get appointments by patientId
-	@GetMapping("/get/{patientId}")
-	public ResponseEntity<?> getBy(@PathVariable("patientId") int patientId) {
-
+	
+	
+	@PutMapping("/Appointment/{pdid}")
+	public ResponseEntity<?> updateAppointment(@PathVariable ("pdid")int pdid,
+			@RequestBody PatientDoctorDto  patientDoctorDto) {
+		
 		try {
-			Patient patient = patientService.getBy(patientId);
-			return ResponseEntity.ok().body(patient);
-		} catch (InvalidIdException e) {
+			PatientDoctor patientDoctor = patientDoctorService.getBypdId(pdid);
+			
+			/*if (patientDoctorDto.getPrescriptionDetails() != null) {
+            patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());*/
+			if (patientDoctorDto.getPrescriptionDetails() != null) {
+                patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());
+            }
+
+            // Update other properties (fee, time, date) if non-null
+            if (patientDoctorDto.getFee() != null) {
+                patientDoctor.setFee(patientDoctorDto.getFee());
+            }
+            if (patientDoctorDto.getTime() != null) {
+                patientDoctor.setTime(patientDoctorDto.getTime());
+            }
+            if (patientDoctorDto.getDate() != null) {
+                patientDoctor.setDate(patientDoctorDto.getDate());
+            }
+			patientDoctor = patientDoctorService.postPatientDoctor(patientDoctor);
+			return ResponseEntity.ok().body(patientDoctor);
+			
+		}catch(InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-	}
+		
+	}	
 
-	// get appointments by doctorId
-		@GetMapping("/get/{doctorId}")
-		public ResponseEntity<?> getBydid(@PathVariable("doctorId") int doctorId) {
-
-			try {
-				Doctor doctor = doctorService.getBydid(doctorId);
-				return ResponseEntity.ok().body(doctor);
-			} catch (InvalidIdException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
-		}
 }
+
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

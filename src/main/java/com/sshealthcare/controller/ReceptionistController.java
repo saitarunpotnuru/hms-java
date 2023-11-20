@@ -56,13 +56,13 @@ public class ReceptionistController {
 			String encodedPassword = passwordEncoder.encode( passwordPlain);
 			user.setPassword(encodedPassword);
 			
-			user.setRole(RoleType.Receptionist);
+			user.setRole(RoleType.RECEPTIONIST);
 			user = userService.insert(user);
 			
 			// attach the saved user(in step 1)
 			receptionist.setUser(user);
 			
-			return receptionistService.insert(receptionist);
+			return receptionistService.insert(receptionist); 
 			
 	}
 	

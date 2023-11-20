@@ -36,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				"/room/add","/room/all","/room/getone/{id}",
 				
-				"/executive/add","/executive/get","/executive/get/{id}",
+				"/executive/add","/executive/get","/executive/get/{id}","/executive/update/{id}",
 				
-				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}",
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/getone/{id}","/appointment/get/appointment/{patientId}",
 
 
 				"/patient/add","/patient/get","/patient/get/{pid}","/patient/delete/{id}","/patient/update/{id}",
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 				"/executive/add","/executive/get","/executive/get/{id}","/executive/update/{id}",
 				
-				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/get/{patientId}","/appointment/get/{doctorId}",
+				"/appointment/add/{pid}/{did}","/appointment/all","/appointment/get/patient/{patientId}","/appointment/get/{doctorId}",
 				
 
 				"/doctor/add/{depid}","/doctor/all","/doctor/getone/{id}","/doctor/update/{id}","/doctor/delete/{id}","/appointment/Appointment/{pdid}",

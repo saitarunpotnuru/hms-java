@@ -34,7 +34,7 @@ public class DoctorService {
 	public Doctor getOne(int id) throws InvalidIdException{
 		Optional<Doctor> optional =  doctorRepository.findById(id);
 		if(!optional.isPresent()){
-			throw new InvalidIdException("Receptionist ID Invalid");
+			throw new InvalidIdException("Doctor ID Invalid");
 		}
 		
 		return optional.get();
@@ -61,7 +61,7 @@ public class DoctorService {
 		
 	}
 
-	//appointments getting by doctorId
+	//get appointments by doctorId
 	public Doctor getBydid(int doctorId) throws InvalidIdException {
 		Optional<Doctor> optional = doctorRepository.findById(doctorId);
 		if(!optional.isPresent()) {
@@ -71,7 +71,7 @@ public class DoctorService {
 	}
 	
 	
-	//appointments getting by doctorId
+	// get appointment by doctorId
 		public Doctor getByDoctor(int did) throws InvalidIdException {
 			Optional<Doctor> optional = doctorRepository.findById1(did);
 			if(!optional.isPresent()) {

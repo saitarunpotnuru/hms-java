@@ -1,4 +1,5 @@
 package com.sshealthcare.service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,70 +12,49 @@ import com.sshealthcare.model.Patient;
 import com.sshealthcare.repository.DoctorRepository;
 import com.sshealthcare.repository.PatientRepository;
 
-
-
 @Service
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
-    
-    
-    //adding
+	@Autowired
+	private PatientRepository patientRepository;
+
+	// adding patient
 	public Patient insert(Patient patient) {
 		return patientRepository.save(patient);
 	}
 
-
-	//get al
+	// get all patients
 	public List<Patient> getAll() {
 		List<Patient> patient = patientRepository.findAll();
 		return patient;
 	}
 
-
-	//getting by id
-	public Patient getone(int pid) throws InvalidIdException{
+	// get patient by id
+	public Patient getone(int pid) throws InvalidIdException {
 		Optional<Patient> optional = patientRepository.findById(pid);
-		if(!optional.isPresent())
-			throw new InvalidIdException ("invalid patient id");
+		if (!optional.isPresent())
+			throw new InvalidIdException("invalid patient id");
 		return optional.get();
 	}
 
-	//appointments getting by patientId
-	public Patient getBy(int patientId) throws InvalidIdException {
+	
+
+	// get appointments by patientId
+	public Patient getAppointmentBy(int patientId) throws InvalidIdException {
 		Optional<Patient> optional = patientRepository.findById(patientId);
-		if(!optional.isPresent()) {
+		if (!optional.isPresent()) {
 			throw new InvalidIdException("Patient ID Invalid");
 		}
 		return optional.get();
 	}
-	
-	//appointments getting by patientId
-		public Patient getById1(int id) throws InvalidIdException {
-			Optional<Patient> optional = patientRepository.findById1(id);
-			if(!optional.isPresent()) {
-				throw new InvalidIdException("Patient ID Invalid");
-			}
-			return optional.get();
-		}
-
-
-	public Patient getById(int id) {
-		return patientRepository.getById(id);
-		
-		
+	//delete patient
+	public void delete(int pid) {
+		patientRepository.deleteById(pid);
 	}
 
-
-	public Patient getByPatient(int pid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	
 }
+
+
 
 
 

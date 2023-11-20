@@ -13,8 +13,16 @@ public interface PatientDoctorRepository extends JpaRepository<PatientDoctor, In
 	@Query(value = "select * from appointment where id = ?1",nativeQuery = true)
 	Optional<PatientDoctor> findBy(int pdid);
 
+	
+	@Query("select pd from PatientDoctor pd where pd.patient.id =?1")
+	Optional<PatientDoctor> findBypId(int patientId);
+
+	
+	@Query("select pd from PatientDoctor pd where pd.patient.id =?1")
+	List<PatientDoctor> getAll(int patientId);
 
 
+     
 
 
 	

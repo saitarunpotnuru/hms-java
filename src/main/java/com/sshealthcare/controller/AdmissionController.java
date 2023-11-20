@@ -69,6 +69,9 @@ public class AdmissionController {
 			// save the product in DB
 			admission = admissionService.save(admission);
 			
+			
+			
+			
 			return ResponseEntity.ok().body(admission);
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

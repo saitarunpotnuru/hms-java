@@ -16,7 +16,8 @@ public class Room {
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int Id;
     private String type;
-    private String Cost;
+    private int room_no;
+    private Double Cost;
     @Enumerated(EnumType.STRING)
     private RoomStatus roomstatus;
 	public int getId() {
@@ -31,15 +32,31 @@ public class Room {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getCost() {
+	public double getCost() {
 		return Cost;
 	}
-	public void setCost(String cost) {
+	public void setCost(double cost) {
+		Cost = cost;
+	}
+	public int getRoom_no() {
+		return room_no;
+	}
+	public void setRoom_no(int room_no) {
+		this.room_no = room_no;
+	}
+	public RoomStatus getRoomstatus() {
+		return roomstatus;
+	}
+	public void setRoomstatus(RoomStatus roomstatus) {
+		this.roomstatus = roomstatus;
+	}
+	public void setCost(Double cost) {
 		Cost = cost;
 	}
 	@Override
 	public String toString() {
-		return "Room [Id=" + Id + ", type=" + type + ", Cost=" + Cost + "]";
+		return "Room [Id=" + Id + ", type=" + type + ", room_no=" + room_no + ", Cost=" + Cost + ", roomstatus="
+				+ roomstatus + "]";
 	}
 	
     

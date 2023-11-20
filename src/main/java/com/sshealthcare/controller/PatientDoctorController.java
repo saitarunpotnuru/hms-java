@@ -1,6 +1,5 @@
 package com.sshealthcare.controller;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -23,7 +22,6 @@ import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.PatientDoctor;
-import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.service.DoctorService;
 import com.sshealthcare.service.PatientDoctorService;
 import com.sshealthcare.service.PatientService;
@@ -66,6 +64,8 @@ public class PatientDoctorController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	
 
 	// get all appointments
 	@GetMapping("/all")
@@ -77,17 +77,23 @@ public class PatientDoctorController {
 		return patientDoctorService.getAllpatientDoctors(pageable);
 	}
 
+	
 	// get appointments by patientId
-	@GetMapping("/get/{patientId}")
-	public ResponseEntity<?> getBy(@PathVariable("patientId") int patientId) {
+		@GetMapping("/get/appointment/{patientId}")
+		public ResponseEntity<?> getAppointmentBy(@PathVariable("patientId") int patientId) {
 
-		try {
-			Patient patient = patientService.getBy(patientId);
-			return ResponseEntity.ok().body(patient);
-		} catch (InvalidIdException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			try {
+				Patient patient = patientService.getAppointmentBy(patientId);
+				List<PatientDoctor> list = patientDoctorService.getAll(patientId);
+				return ResponseEntity.ok().body(list);
+			} catch (InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
 		}
-	}
+	
+	
+	
+	
 
 	// get appointments by doctorId
 	@GetMapping("/get/{doctorId}")
@@ -102,7 +108,7 @@ public class PatientDoctorController {
 	}
 	
 	
-	
+	//updating prescription
 	@PutMapping("/Appointment/{pdid}")
 	public ResponseEntity<?> updateAppointment(@PathVariable ("pdid")int pdid,
 			@RequestBody PatientDoctorDto  patientDoctorDto) {
@@ -110,8 +116,7 @@ public class PatientDoctorController {
 		try {
 			PatientDoctor patientDoctor = patientDoctorService.getBypdId(pdid);
 			
-			/*if (patientDoctorDto.getPrescriptionDetails() != null) {
-            patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());*/
+			
 			if (patientDoctorDto.getPrescriptionDetails() != null) {
                 patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());
             }
@@ -126,7 +131,7 @@ public class PatientDoctorController {
             if (patientDoctorDto.getDate() != null) {
                 patientDoctor.setDate(patientDoctorDto.getDate());
             }
-			patientDoctor = patientDoctorService.postPatientDoctor(patientDoctor);
+			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
 			return ResponseEntity.ok().body(patientDoctor);
 			
 		}catch(InvalidIdException e) {

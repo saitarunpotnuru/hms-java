@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,7 +90,7 @@ public class PatientController {
 	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
 			@RequestBody PatientDto patientDto){
 	try {
-		Patient patient = patientService.getById1(id);
+		Patient patient = patientService.getone(id);
 		if(patientDto.getName()!=null)
 			patient.setName(patientDto.getName());
 		if(patientDto.getAge()!=0)
@@ -100,11 +101,21 @@ public class PatientController {
 			patient.setContact(patientDto.getContact());
 		if(patientDto.getEmail()!=null)
 			patient.setEmail(patientDto.getEmail());
+		
+		patient = patientService.insert(patient);
 		return ResponseEntity.ok().body(patient);
 		}catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	
+	}
+	
+	//delete a patient
+	@DeleteMapping("/delete/{pid}")
+	public String deletePatient(@PathVariable("pid")int pid) {
+		patientService.delete(pid);
+		return "deleted";
+		
 	}
 
 }	

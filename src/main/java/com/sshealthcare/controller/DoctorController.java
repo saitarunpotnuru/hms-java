@@ -125,31 +125,31 @@ public class DoctorController {
 	//updating doctors by id
 	@PutMapping("/update/{id}") 
 	public ResponseEntity<?> updateDoctor(@PathVariable("id") int id,
-							@RequestBody Doctor newDoctor) {
+							@RequestBody Doctor DoctorDto) {
 		try {
 			// validate id
 			Doctor doctor = doctorService.getOne(id);
-			if (newDoctor.getName() != null)
-				doctor.setName(newDoctor.getName());
-			if (newDoctor.getGender() != null)
-				doctor.setGender(newDoctor.getGender());
-			if (newDoctor.getEmail() != null)
-				doctor.setEmail(newDoctor.getEmail());
-
-			doctor = doctorService.insertDoctor(doctor);
-
-			if(newDoctor.getGender() != null) 
-				doctor.setGender(newDoctor.getGender()); 
-			if(newDoctor.getEmail() != null) 
-				doctor.setEmail(newDoctor.getEmail()); 
-			if(newDoctor.getContact() != null) 
-				doctor.setContact(newDoctor.getContact()); 
-			if(newDoctor.getDate() != null) 
-				doctor.setDate(newDoctor.getDate()); 
-			if(newDoctor.getStartTime() != null) 
-				doctor.setStartTime(newDoctor.getStartTime());
-			if(newDoctor.getEndTime() != null) 
-				doctor.setEndTime(newDoctor.getEndTime());
+			if (DoctorDto.getName() != null)
+				doctor.setName(DoctorDto.getName());
+			
+			if (DoctorDto.getGender() != null)
+				doctor.setGender(DoctorDto.getGender());
+			
+			if (DoctorDto.getEmail() != null)
+				doctor.setEmail(DoctorDto.getEmail()); 
+			
+			if(DoctorDto.getContact() != null) 
+				doctor.setContact(DoctorDto.getContact()); 
+			
+			if(DoctorDto.getDate() != null) 
+				doctor.setDate(DoctorDto.getDate()); 
+			
+			if(DoctorDto.getStartTime() != null) 
+				doctor.setStartTime(DoctorDto.getStartTime());
+			
+			if(DoctorDto.getEndTime() != null) 
+				doctor.setEndTime(DoctorDto.getEndTime());
+			
 			 
 			doctor = doctorService.insertDoctor(doctor); 
 			return ResponseEntity.ok().body(doctor);
@@ -161,26 +161,26 @@ public class DoctorController {
 	
 	
 	
-	
+	//updating appointment status
 	@PutMapping("/updateAppointment/{Aid}") 
 	public ResponseEntity<?> updateAppointment(@PathVariable("Aid") int Aid,
 							@RequestBody PatientDoctor patientDoctor) {
 		try {
 			// validate id
-			PatientDoctor patientDoctor2 = patientDoctorService.getByAid(Aid);
+			PatientDoctor PatientDoctorDto = patientDoctorService.getByAid(Aid);
 			if (patientDoctor.getPrescriptionDetails() != null)
-				patientDoctor2.setPrescriptionDetails(patientDoctor.getPrescriptionDetails());
+				PatientDoctorDto.setPrescriptionDetails(patientDoctor.getPrescriptionDetails());
 			if (patientDoctor.getFee() != null)
-				patientDoctor2.setFee(patientDoctor.getFee());
+				PatientDoctorDto.setFee(patientDoctor.getFee());
 			if (patientDoctor.getDate() != null)
-				patientDoctor2.setDate(patientDoctor.getDate());
+				PatientDoctorDto.setDate(patientDoctor.getDate());
 			if (patientDoctor.getTime() != null)
-				patientDoctor2.setTime(patientDoctor.getTime());
+				PatientDoctorDto.setTime(patientDoctor.getTime());
 			if (patientDoctor.getStatus() != null)
-				patientDoctor2.setStatus(patientDoctor.getStatus());
+				PatientDoctorDto.setStatus(patientDoctor.getStatus());
 			
-			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor2); 
-			return ResponseEntity.ok().body(patientDoctor2);
+			patientDoctor = patientDoctorService.assignPatientDoctor(PatientDoctorDto); 
+			return ResponseEntity.ok().body(PatientDoctorDto);
 
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

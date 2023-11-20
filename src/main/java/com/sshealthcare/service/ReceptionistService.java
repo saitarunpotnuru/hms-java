@@ -44,6 +44,7 @@ public class ReceptionistService {
 		return receptionistRepository.save(receptionist);
 	}
 
+	//delete Receptionist
 	public void deleteReceptionist(Receptionist receptionist) {
 		receptionistRepository.delete(receptionist);
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sshealthcare.exception.InvalidIdException;
+import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
+import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.ExecutiveService;
 import com.sshealthcare.service.PatientService;
@@ -66,30 +69,48 @@ public class PatientController {
 	@GetMapping("/get/{pid}")
 	public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
 		try {
-			Patient patient = patientService.getone(pid);
+			Patient patient = patientService.getOne(pid);
 			return ResponseEntity.ok().body(patient);
 		}catch(InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 	
-	
-	//update patient
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
-			@RequestBody Patient newPatient) throws InvalidIdException {
-	Patient patient = patientService.getById(id);
-	if(newPatient.getName()!=null)
-		patient.setName(newPatient.getName());
-	if(newPatient.getAge()!=0)
-		patient.setAge(newPatient.getAge());
-	if(newPatient.getGender()!=null)
-		patient.setGender(newPatient.getGender());
-	if(newPatient.getContact()!=null)
-		patient.setContact(newPatient.getContact());
-	if(newPatient.getEmail()!=null)
-		patient.setEmail(newPatient.getEmail());
-	return ResponseEntity.ok().body(patient);
-	}	
+	//update patient by id
+	@PutMapping("/update/{id}") 
+	public ResponseEntity<?> updatePatient(@PathVariable("id") int id,
+							@RequestBody Patient newPatient) {
+		try {
+			//validate id
+			Patient patient= patientService.getOne(id);
+			if(newPatient.getName() != null)
+				patient.setName(newPatient.getName());
+			if(newPatient.getAge() != 0)
+				patient.setAge(newPatient.getAge());
+			if(newPatient.getGender() != null) 
+				patient.setGender(newPatient.getGender()); 
+			if(newPatient.getEmail() != null) 
+				patient.setEmail(newPatient.getEmail()); 
+			if(newPatient.getContact() != null) 
+				patient.setContact(newPatient.getContact());  
+			
+			 
+			patient = patientService.insertPatient(patient); 
+			return ResponseEntity.ok().body(patient);
 
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+}
+	
+	//delete a patient
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deletePatient(@PathVariable("id") int id) throws InvalidIdException {
+		
+		//validate id
+		Patient patient = patientService.getOne(id);
+		//delete
+		patientService.deletePatient(patient);
+		return ResponseEntity.ok().body("Patient deleted successfully");
+	}
 }	

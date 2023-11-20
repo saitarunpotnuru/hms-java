@@ -53,6 +53,7 @@ public class DoctorService {
 		return doctorRepository.save(doctor);
 	}
 
+	//delete doctor
 	public void deleteDoctor(Doctor doctor) {
 		doctorRepository.delete(doctor);
 		

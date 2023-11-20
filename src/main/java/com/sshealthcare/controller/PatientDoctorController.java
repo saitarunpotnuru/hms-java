@@ -43,7 +43,7 @@ public class PatientDoctorController {
 			@RequestBody PatientDoctor patientDoctor) {
 		try {
 
-			Patient patient = patientService.getone(pid);
+			Patient patient = patientService.getOne(pid);
 			patientDoctor.setPatient(patient);
 
 			Doctor doctor = doctorService.getById(did);

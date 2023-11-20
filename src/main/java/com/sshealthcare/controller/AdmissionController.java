@@ -53,7 +53,7 @@ public class AdmissionController {
 			admission.setRoom(room);
 			
 			// fetch patient object from DB by patientId
-			Patient patient = patientService.getone(patientId);
+			Patient patient = patientService.getOne(patientId);
 			
 			// attach patient to admission
 			admission.setPatient(patient);

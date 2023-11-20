@@ -53,7 +53,7 @@ public class BillingController {
         	Admission admission = admissionService.getById(admissionId);
             billing.setAdmission(admission);
             
-            Patient patient = patientService.getone(pid);
+            Patient patient = patientService.getOne(pid);
             billing.setPatient(patient);
             
             Doctor doctor = doctorService.getById(did);

@@ -34,7 +34,7 @@ public class PatientService {
 
 
 	//getting by id
-	public Patient getone(int pid) throws InvalidIdException{
+	public Patient getOne(int pid) throws InvalidIdException{
 		Optional<Patient> optional = patientRepository.findById(pid);
 		if(!optional.isPresent())
 			throw new InvalidIdException ("invalid patient id");
@@ -50,12 +50,18 @@ public class PatientService {
 		return optional.get();
 	}
 
+	//updating a patient by id
+	public Patient insertPatient(Patient patient) {
+		return patientRepository.save(patient);
+	}
 
-	public Patient getById(int id) {
-		return patientRepository.getById(id);
-		
+
+	//delete a patient by id
+	public void deletePatient(Patient patient) {
+		patientRepository.delete(patient);
 		
 	}
+
 }
 
 

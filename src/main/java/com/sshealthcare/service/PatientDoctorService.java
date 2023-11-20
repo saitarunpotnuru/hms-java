@@ -28,6 +28,8 @@ public class PatientDoctorService {
 	}
 	
 	
+	
+	
 
 	public PatientDoctor getBy(int patientId) throws InvalidIdException {
 		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(patientId);

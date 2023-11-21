@@ -20,11 +20,10 @@ import com.sshealthcare.service.DepartmentService;
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
+	
 	@Autowired
 	private DepartmentService departmentService;
 
-	
-	
 	
 	// adding department
 	@PostMapping("/add")
@@ -33,17 +32,13 @@ public class DepartmentController {
 	}
 
 	
-	
-	
 	// getting department
 	@GetMapping("/get")
 	public List<Department> getAlldepartments() {
 		return departmentService.getAll();
 	}
 
-	
-	
-	
+
 	// get department by id
 	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -56,15 +51,13 @@ public class DepartmentController {
 	}
 
 	
-	
-	
 	// update department
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> getOne(@PathVariable("id") int id, @RequestBody Department newdeDepartment) {
+	public ResponseEntity<?> getOne(@PathVariable("id") int id, @RequestBody Department newDepartment) {
 		try {
 			Department department = departmentService.getOne(id);
-			if (newdeDepartment.getName() != null)
-				department.setName(newdeDepartment.getName());
+			if (newDepartment.getName() != null)
+				department.setName(newDepartment.getName());
 
 			department = departmentService.insert(department);
 			return ResponseEntity.ok().body(department);

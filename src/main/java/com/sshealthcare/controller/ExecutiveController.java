@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
 import com.sshealthcare.model.Department;
@@ -43,15 +43,13 @@ public class ExecutiveController {
 		String passwordPlain = user.getPassword();
 		String encodedPassword = passwordEncoder.encode(passwordPlain);
 		user.setPassword(encodedPassword);
-		user.setRole(RoleType.RECEPTIONIST);
+		user.setRole(RoleType.EXECUTIVE);
 		user = userService.insert(user);
 		executive.setUser(user);
 		return executiveService.insert(executive);
 
 	}
 
-	
-	
 	
 	// get executive
 	@GetMapping("/get")
@@ -60,7 +58,6 @@ public class ExecutiveController {
 	}
 	
 	
-
 	// get executive by id
 	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -73,8 +70,6 @@ public class ExecutiveController {
 	}
 	
 	
-	
-
 	// update executive
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateExecutive(@PathVariable("id") int id, @RequestBody Executive newExecutive) {
@@ -94,7 +89,6 @@ public class ExecutiveController {
 		}catch(InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		
 
 	}
 

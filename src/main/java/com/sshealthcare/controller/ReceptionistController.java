@@ -38,11 +38,7 @@ public class ReceptionistController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	
-	
-	
-	
-	//adding all receptionists
+	//adding  receptionists
 	@PostMapping("/add")
 	
 		public Receptionist insertReceptionist (@RequestBody Receptionist receptionist) {
@@ -65,11 +61,6 @@ public class ReceptionistController {
 			return receptionistService.insert(receptionist);
 			
 	}
-	
-	
-	
-	
-	
 	
 	//getting all receptionists
 	@GetMapping("/all")
@@ -99,18 +90,18 @@ public class ReceptionistController {
 	//update receptionists by Id
 	@PutMapping("/update/{id}")  //:update: which record to update?   give me new value for update
 	public ResponseEntity<?> updateReceptionist(@PathVariable("id") int id,
-							@RequestBody Receptionist newReceptionist) {
+							@RequestBody Receptionist ReceptionistDto) {
 		try {
 			//validate id
 			Receptionist Receptionist = receptionistService.getOne(id);
-			if(newReceptionist.getName() != null)
-				Receptionist.setName(newReceptionist.getName());
-			if(newReceptionist.getGender() != null)
-				Receptionist.setGender(newReceptionist.getGender());
-			if(newReceptionist.getContact() != null) 
-				Receptionist.setContact(newReceptionist.getContact()); 
-			if(newReceptionist.getEmail() != null) 
-				Receptionist.setEmail(newReceptionist.getEmail()); 
+			if(ReceptionistDto.getName() != null)
+				Receptionist.setName(ReceptionistDto.getName());
+			if(ReceptionistDto.getGender() != null)
+				Receptionist.setGender(ReceptionistDto.getGender());
+			if(ReceptionistDto.getContact() != null) 
+				Receptionist.setContact(ReceptionistDto.getContact()); 
+			if(ReceptionistDto.getEmail() != null) 
+				Receptionist.setEmail(ReceptionistDto.getEmail()); 
 			 
 			Receptionist = receptionistService.insertReceptionist(Receptionist); 
 			return ResponseEntity.ok().body(Receptionist);

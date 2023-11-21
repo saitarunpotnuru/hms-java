@@ -77,10 +77,6 @@ public class AdmissionController {
 
 	}
 	
-	
-	
-	
-
 	// getting all admissions
 	@GetMapping("/all")
 	public List<Admission> getAllAdmissions(
@@ -103,7 +99,7 @@ public class AdmissionController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	
 	// updating admissions by id
 	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update

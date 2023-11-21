@@ -67,41 +67,38 @@ public class PatientController {
 		return patientService.getAll();
 	}
 
-	
 	//get patient by id
-		@GetMapping("/get/{pid}")
-		public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
-		try {
-
-			Patient patient = patientService.getOne(pid);
+			@GetMapping("/get/{pid}")
+			public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
+			try {
+			Patient patient = patientService.getone(pid);
 			return ResponseEntity.ok().body(patient);
-		}catch(InvalidIdException e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
+			}catch(InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+				}
 			}
-		}
+		
+ //update patient
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> updatePatient(@PathVariable("id")int id,
+			@RequestBody PatientDto patientDto){
+	try {
+		Patient patient = patientService.getone(id);
+		if(patientDto.getName()!=null)
+			patient.setName(patientDto.getName());
+		if(patientDto.getAge()!=0)
+			patient.setAge(patientDto.getAge());
+		if(patientDto.getGender()!=null)
+			patient.setGender(patientDto.getGender());
+		if(patientDto.getContact()!=null)
+			patient.setContact(patientDto.getContact());
+		if(patientDto.getEmail()!=null)
+			patient.setEmail(patientDto.getEmail());
+		
+		patient = patientService.insert(patient);
+		return ResponseEntity.ok().body(patient);
+		}catch (InvalidIdException e) {
 
-	
-	//update patient by id
-	@PutMapping("/update/{id}") 
-	public ResponseEntity<?> updatePatient(@PathVariable("id") int id,
-							@RequestBody Patient newPatient) {
-		try {
-			//validate id
-			Patient patient= patientService.getOne(id);
-			if(newPatient.getName() != null)
-				patient.setName(newPatient.getName());
-			if(newPatient.getAge() != 0)
-				patient.setAge(newPatient.getAge());
-			if(newPatient.getGender() != null) 
-				patient.setGender(newPatient.getGender()); 
-			if(newPatient.getEmail() != null) 
-				patient.setEmail(newPatient.getEmail()); 
-			if(newPatient.getContact() != null) 
-				patient.setContact(newPatient.getContact());   
-			patient = patientService.insertPatient(patient); 
-			return ResponseEntity.ok().body(patient);
-
-		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 }
@@ -116,6 +113,7 @@ public class PatientController {
 		patientService.deletePatient(patient);
 		return ResponseEntity.ok().body("Patient deleted successfully");
 	}
+
 }	
 
 

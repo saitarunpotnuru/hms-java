@@ -23,30 +23,14 @@ public class PatientDoctorService {
 	public PatientDoctor assignPatientDoctor(PatientDoctor patientDoctor) {
 		return patientDoctorRepository.save(patientDoctor);
 	}
-	//getall
+	//get all appointments
 	public List<PatientDoctor> getAllpatientDoctors(Pageable pageable) {
 		return patientDoctorRepository.findAll(pageable).getContent();
 	}
-	
-	
 
-	public PatientDoctor getBy(int patientId) throws InvalidIdException {
-		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(patientId);
-		if(!optional.isPresent()){
-			throw new InvalidIdException("Patient ID Invalid");
-		
-	}
-		return optional.get();
 	
-}
-	public  PatientDoctor getByAid(int aid) throws InvalidIdException{
-		Optional<PatientDoctor> optional =  patientDoctorRepository.findById(aid);
-		if(!optional.isPresent()){
-			throw new InvalidIdException("Patient ID Invalid");
-		
-	}
-		return optional.get();
-	}
+	
+	//get appointment by appointment id
 	public PatientDoctor getBypdId(int pdid) throws InvalidIdException{
 		Optional<PatientDoctor> optional = patientDoctorRepository.findBy(pdid);
 		if(!optional.isPresent()) {
@@ -54,11 +38,44 @@ public class PatientDoctorService {
 		}
 		return optional.get();
 	}
+
 	public PatientDoctor postPatientDoctor(PatientDoctor patientDoctor) {
 		// TODO Auto-generated method stub
 		return patientDoctorRepository.save(patientDoctor);
 	}
  
+	
+	//get list of appointments by pid
+			public List<PatientDoctor> getAll(int patientId) {
+				return patientDoctorRepository.getAll(patientId);
+			}
+	
+	
+	//updating appointment status
+		public  PatientDoctor getByAid(int aid) throws InvalidIdException{
+			Optional<PatientDoctor> optional =  patientDoctorRepository.findById(aid);
+			if(!optional.isPresent()){
+				throw new InvalidIdException("Patient ID Invalid");
+			
+		}
+			return optional.get();
+		}
 }
 
+	/*public PatientDoctor getBy(int patientId) throws InvalidIdException {
+		Optional<PatientDoctor> optional =  patientDoctorRepository.findBypId(patientId);
+		if(!optional.isPresent()){
+			throw new InvalidIdException("Patient ID Invalid");
+		
+	}
+		return optional.get();
 	
+}
+
+
+//update appointment
+	public PatientDoctor postPatientDoctor(PatientDoctor patientDoctor) {
+		// TODO Auto-generated method stub
+		return patientDoctorRepository.save(patientDoctor);
+	}
+*/

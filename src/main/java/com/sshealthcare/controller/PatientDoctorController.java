@@ -1,6 +1,5 @@
 package com.sshealthcare.controller;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -18,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sshealthcare.dto.PatientDoctorDto;
-import com.sshealthcare.dto.PatientDto;
 import com.sshealthcare.enums.StatusType;
 import com.sshealthcare.exception.InvalidIdException;
-import com.sshealthcare.model.Department;
 import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.PatientDoctor;
-import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.service.DoctorService;
 import com.sshealthcare.service.PatientDoctorService;
 import com.sshealthcare.service.PatientService;
@@ -48,7 +44,7 @@ public class PatientDoctorController {
 			@RequestBody PatientDoctor patientDoctor) {
 		try {
 
-			Patient patient = patientService.getOne(pid);
+			Patient patient = patientService.getone(pid);
 			patientDoctor.setPatient(patient);
 
 			Doctor doctor = doctorService.getById(did);
@@ -60,7 +56,7 @@ public class PatientDoctorController {
 			if (patientDoctor.getTime().isBefore(stime) || patientDoctor.getTime().isAfter(etime)) {
 				throw new InvalidIdException("slot not available");
 			}
-			patientDoctor.setStatus(StatusType.PENDING);
+			patientDoctor.setStatus(StatusType.CANCELLED);
 
 			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
 			return ResponseEntity.ok().body(patientDoctor);
@@ -68,6 +64,8 @@ public class PatientDoctorController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	
 
 	// get all appointments
 	@GetMapping("/all")
@@ -78,8 +76,39 @@ public class PatientDoctorController {
 		Pageable pageable = PageRequest.of(page, size);
 		return patientDoctorService.getAllpatientDoctors(pageable);
 	}
+
+	
+	// get appointments by patientId
+		@GetMapping("/get/appointment/{patientId}")
+		public ResponseEntity<?> getAppointmentBy(@PathVariable("patientId") int patientId) {
+
+			try {
+				Patient patient = patientService.getAppointmentBy(patientId);
+				List<PatientDoctor> list = patientDoctorService.getAll(patientId);
+				return ResponseEntity.ok().body(list);
+			} catch (InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+		}
 	
 	
+	
+	
+
+	// get appointments by doctorId
+	@GetMapping("/get/{doctorId}")
+	public ResponseEntity<?> getBydid(@PathVariable("doctorId") int doctorId) {
+
+		try {
+			Doctor doctor = doctorService.getBydid(doctorId);
+			return ResponseEntity.ok().body(doctor);
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
+	//updating prescription
 	@PutMapping("/Appointment/{pdid}")
 	public ResponseEntity<?> updateAppointment(@PathVariable ("pdid")int pdid,
 			@RequestBody PatientDoctorDto  patientDoctorDto) {
@@ -87,8 +116,7 @@ public class PatientDoctorController {
 		try {
 			PatientDoctor patientDoctor = patientDoctorService.getBypdId(pdid);
 			
-			/*if (patientDoctorDto.getPrescriptionDetails() != null) {
-            patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());*/
+			
 			if (patientDoctorDto.getPrescriptionDetails() != null) {
                 patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());
             }
@@ -103,26 +131,12 @@ public class PatientDoctorController {
             if (patientDoctorDto.getDate() != null) {
                 patientDoctor.setDate(patientDoctorDto.getDate());
             }
-			patientDoctor = patientDoctorService.postPatientDoctor(patientDoctor);
+			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
 			return ResponseEntity.ok().body(patientDoctor);
 			
 		}catch(InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		
-	}	
-
+	}
 }
-
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

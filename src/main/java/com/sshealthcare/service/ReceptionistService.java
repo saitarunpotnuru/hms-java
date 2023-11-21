@@ -23,12 +23,12 @@ public class ReceptionistService {
 		
 	}
 	
-	//getting all receptionists
+	//get all receptionists
 	public List<Receptionist> getAllreceptionists(Pageable pageable) {
 		return receptionistRepository.findAll(pageable).getContent();
 	}
 	
-	//getting receptionists by Id
+	//get receptionists by Id
 	public Receptionist getOne(int id) throws InvalidIdException {
 		Optional<Receptionist> optional =  receptionistRepository.findById(id);
 		if(!optional.isPresent()){

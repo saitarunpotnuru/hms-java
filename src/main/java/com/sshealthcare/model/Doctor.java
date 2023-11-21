@@ -18,7 +18,6 @@ public class Doctor {
     private String name;
     private String gender;
     private String email;
-    private String appointmentStatus;
     private String contact;
     private LocalDate date ;
     private LocalTime startTime;
@@ -64,13 +63,6 @@ public class Doctor {
 		this.email = email;
 	}
 
-	public String getAppointmentStatus() {
-		return appointmentStatus;
-	}
-
-	public void setAppointmentStatus(String appointmentStatus) {
-		this.appointmentStatus = appointmentStatus;
-	}
 
 	public String getContact() {
 		return contact;
@@ -123,7 +115,7 @@ public class Doctor {
 	@Override
 	public String toString() {
 		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email
-				+ ", appointmentStatus=" + appointmentStatus + ", contact=" + contact + ", date=" + date
+				+ ", appointmentStatus="  + ", contact=" + contact + ", date=" + date
 				+ ", startTime=" + startTime + ", endTime=" + endTime + ", user=" + user + ", department=" + department
 				+ "]";
 	}

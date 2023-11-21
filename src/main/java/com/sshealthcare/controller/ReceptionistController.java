@@ -58,7 +58,7 @@ public class ReceptionistController {
 			// attach the saved user(in step 1)
 			receptionist.setUser(user);
 			
-			return receptionistService.insert(receptionist);
+			return receptionistService.insert(receptionist); 
 			
 	}
 	

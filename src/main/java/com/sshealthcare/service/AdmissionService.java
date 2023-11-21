@@ -17,6 +17,8 @@ public class AdmissionService {
 	
 	@Autowired
 	private AdmissionRepository admissionRepository;
+	@Autowired
+	private RoomService roomService;
 	
 	//adding
 	public Admission save(Admission admission) {
@@ -51,6 +53,18 @@ public class AdmissionService {
 
 	public Admission insertAdmission(Admission admission) {
 		return admissionRepository.save(admission);
+	}
+
+	/*public long getGeneralRoomsCount() {
+        return roomService.countRoomsByType("general");
+    }
+
+    public long getSpecialRoomsCount() {
+        return roomService.countRoomsByType("special");
+    }*/
+
+	public int getSpecialPatients(int rid) {
+		return admissionRepository.getSpecialPatient(rid);
 	}
 
 }

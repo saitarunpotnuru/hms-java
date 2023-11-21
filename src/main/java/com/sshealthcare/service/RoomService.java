@@ -49,4 +49,8 @@ public class RoomService {
 
 }
 
+	public long countRoomsByType(String type) {
+        return roomRepository.countRoomsByType(type);
+    }
+
 }

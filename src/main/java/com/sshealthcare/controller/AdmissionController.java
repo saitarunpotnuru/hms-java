@@ -51,6 +51,16 @@ public class AdmissionController {
 		// fetch room object from DB by roomId
 		try {
 			Room room = roomService.getById(rid);
+			 if (room.getType().equalsIgnoreCase("general") && admissionService.getSpecialPatients(rid) > 4  ) {
+				 throw new InvalidIdException("General room not available");
+		        }
+
+		        // Check if the room is of type 'special' and if it already has a patient
+		        if (room.getType().equalsIgnoreCase("special") && admissionService.getSpecialPatients(rid) > 0) {
+		            throw new InvalidIdException("Special room not available");
+		        	
+		        }
+
 			// attach room to admission
 			admission.setRoom(room);
 			

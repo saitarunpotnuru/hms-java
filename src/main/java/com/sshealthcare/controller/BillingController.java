@@ -55,7 +55,7 @@ public class BillingController {
 			Admission admission = admissionService.getById(admissionId);
 			billing.setAdmission(admission);
 
-			Patient patient = patientService.getone(pid);
+			Patient patient = patientService.getOne(pid);
 			billing.setPatient(patient);
 
 			Doctor doctor = doctorService.getById(did);
@@ -95,8 +95,6 @@ public class BillingController {
 	}
 
 	
-	
-	
 	// update billings
 	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update
 	public ResponseEntity<?> updateBilling(@PathVariable("id") int id, @RequestBody Billing newBilling) {
@@ -107,7 +105,6 @@ public class BillingController {
 				Billing.setBillAmount(newBilling.getBillAmount());
 			if (newBilling.getPaymentStatus() != null)
 				Billing.setPaymentStatus(newBilling.getPaymentStatus());
-
 			Billing = billingService.insertReceptionist(Billing);
 			return ResponseEntity.ok().body(Billing);
 

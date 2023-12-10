@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.exception.InvalidIdException;
+import com.sshealthcare.model.Patient;
 import com.sshealthcare.model.PatientDoctor;
 import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.repository.PatientDoctorRepository;
@@ -37,12 +38,17 @@ public class PatientDoctorService {
 		}
 		return optional.get();
 	}
+
+	public PatientDoctor postPatientDoctor(PatientDoctor patientDoctor) {
+		// TODO Auto-generated method stub
+		return patientDoctorRepository.save(patientDoctor);
+	}
+ 
 	
 	//get list of appointments by pid
-		public List<PatientDoctor> getAll(int patientId) {
-			return patientDoctorRepository.getAll(patientId);
-		}
-	
+			public List<PatientDoctor> getAll(int patientId) {
+				return patientDoctorRepository.getAll(patientId);
+			}
 	
 	
 	//updating appointment status
@@ -54,6 +60,7 @@ public class PatientDoctorService {
 		}
 			return optional.get();
 		}
+<<<<<<< HEAD
 		
 		
 		public List<PatientDoctor> getAppointmentsByDoctorId(int did) {
@@ -73,6 +80,8 @@ public class PatientDoctorService {
 	
 
 	
+=======
+>>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 }
 
 	/*public PatientDoctor getBy(int patientId) throws InvalidIdException {

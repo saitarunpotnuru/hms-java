@@ -55,7 +55,16 @@ public class DoctorService {
 		return doctorRepository.save(doctor);
 	}
 
+<<<<<<< HEAD
 	
+=======
+	//delete doctor
+	public void deleteDoctor(Doctor doctor) {
+		doctorRepository.delete(doctor);
+		
+		
+	}
+>>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 
 	//get appointments by doctorId
 	public Doctor getBydid(int doctorId) throws InvalidIdException {
@@ -67,6 +76,7 @@ public class DoctorService {
 	}
 	
 	
+<<<<<<< HEAD
 	// get appointment by doctorId
 		public Doctor getByDoctor(int did) throws InvalidIdException {
 			Optional<Doctor> optional = doctorRepository.findById1(did);
@@ -102,9 +112,8 @@ public class DoctorService {
 
 
 
+=======
+>>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 	
-
-	
-
 	
 }

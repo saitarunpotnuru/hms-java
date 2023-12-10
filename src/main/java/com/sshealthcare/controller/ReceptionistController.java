@@ -42,11 +42,7 @@ public class ReceptionistController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	
-	
-	
-	
-	//adding all receptionists
+	//adding  receptionists
 	@PostMapping("/add")
 	
 		public Receptionist insertReceptionist (@RequestBody Receptionist receptionist) {
@@ -69,11 +65,6 @@ public class ReceptionistController {
 			return receptionistService.insert(receptionist); 
 			
 	}
-	
-	
-	
-	
-	
 	
 	//getting all receptionists
 	@GetMapping("/all")

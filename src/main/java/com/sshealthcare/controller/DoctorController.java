@@ -97,6 +97,7 @@ public class DoctorController {
 		doctor = doctorService.insert(doctor);
 		return ResponseEntity.ok().body(doctor);
 	}
+<<<<<<< HEAD
 	
 	//get doctors with dep name
 	@GetMapping("/getwithname")
@@ -110,6 +111,8 @@ public class DoctorController {
 	
 	
 	
+=======
+>>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 
 	// getting all doctors
 	@GetMapping("/all")
@@ -120,10 +123,6 @@ public class DoctorController {
 		return doctorService.getAlldoctors(pageable);
 	}
 
-	
-	
-	
-	
 	// getting doctor by Id
 	@GetMapping("/getone/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -135,9 +134,6 @@ public class DoctorController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
-	
-
 
 	//updating doctors by id
 	@PutMapping("/update/{id}") 
@@ -179,6 +175,7 @@ public class DoctorController {
 	
 	
 	//updating appointment status
+
 	@PutMapping("/updateAppointment/{Aid}") 
 	public ResponseEntity<?> updateAppointment(@PathVariable("Aid") int Aid,
 							@RequestBody PatientDoctor patientDoctor) {
@@ -205,7 +202,10 @@ public class DoctorController {
 	}
 	
 	
+<<<<<<< HEAD
   
+=======
+>>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 	// deleting a Doctor
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteDoctor(@PathVariable("id") int id) throws InvalidIdException {

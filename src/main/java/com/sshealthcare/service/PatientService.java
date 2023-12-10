@@ -23,11 +23,16 @@ public class PatientService {
 		return patientRepository.save(patient);
 	}
 
+
 	// get all patients
+
 	public List<Patient> getAll() {
 		List<Patient> patient = patientRepository.findAll();
 		return patient;
 	}
+
+
+
 
 	// get patient by id
 	public Patient getone(int pid) throws InvalidIdException {
@@ -35,6 +40,24 @@ public class PatientService {
 		if (!optional.isPresent())
 			throw new InvalidIdException("invalid patient id");
 		return optional.get();
+	}
+	
+
+	//updating a patient by id
+	public Patient insertPatient(Patient patient) {
+		return patientRepository.save(patient);
+	}
+
+
+	//delete a patient by id
+	public void deletePatient(Patient patient) {
+		patientRepository.delete(patient);
+		
+	}
+
+	public Patient getByPatient(int pid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
@@ -52,9 +75,16 @@ public class PatientService {
 		patientRepository.deleteById(pid);
 	}
 
+<<<<<<< HEAD
 	public Patient getuser(int id) {
 		
 		return patientRepository.getbyused(id);
+=======
+
+	public Patient getOne(int patientId) {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 	}
 
 }

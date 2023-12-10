@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sshealthcare.dto.PatientDto;
 import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
+import com.sshealthcare.model.Doctor;
 import com.sshealthcare.model.Patient;
+import com.sshealthcare.model.Receptionist;
 import com.sshealthcare.model.User;
 import com.sshealthcare.service.ExecutiveService;
 import com.sshealthcare.service.PatientService;
@@ -65,31 +67,22 @@ public class PatientController {
 	}
 
 	
-	
-	
 	// get all patients
 	@GetMapping("/get")
 	public List<Patient> getAllPatients() {
 		return patientService.getAll();
 	}
 
-	
-	
-	
-	
 	//get patient by id
-		@GetMapping("/get/{pid}")
-		public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
-		try {
-		Patient patient = patientService.getone(pid);
-		return ResponseEntity.ok().body(patient);
-		}catch(InvalidIdException e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
+			@GetMapping("/get/{pid}")
+			public ResponseEntity<?> getone(@PathVariable("pid")int pid) {
+			try {
+			Patient patient = patientService.getone(pid);
+			return ResponseEntity.ok().body(patient);
+			}catch(InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+				}
 			}
-		}
-
-
-
 		
  //update patient
 	@PutMapping("/update/{id}")
@@ -112,21 +105,27 @@ public class PatientController {
 		logger.info("updated patient name"+patient.getName()+"to"+ patientDto.getName());
 		return ResponseEntity.ok().body(patient);
 		}catch (InvalidIdException e) {
+
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-	
-	}
+}
 	
 	//delete a patient
-	@DeleteMapping("/delete/{pid}")
-	public String deletePatient(@PathVariable("pid")int pid) {
-		patientService.delete(pid);
-		return "deleted";
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deletePatient(@PathVariable("id") int id) throws InvalidIdException {
 		
+		//validate id
+		Patient patient = patientService.getOne(id);
+		//delete
+		patientService.deletePatient(patient);
+		return ResponseEntity.ok().body("Patient deleted successfully");
 	}
 
 }	
 
 
-	
-	
+
+
+		
+ 
+

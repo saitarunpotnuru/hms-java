@@ -54,8 +54,6 @@ public class ExecutiveController {
 	}
 
 	
-	
-	
 	// get executive
 	@GetMapping("/get")
 	public List<Executive> getAllexecutive() {
@@ -63,7 +61,6 @@ public class ExecutiveController {
 	}
 	
 	
-
 	// get executive by id
 	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getOne(@PathVariable("id") int id) {
@@ -76,8 +73,6 @@ public class ExecutiveController {
 	}
 	
 	
-	
-
 	// update executive
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateExecutive(@PathVariable("id") int id, @RequestBody Executive newExecutive) {
@@ -97,7 +92,6 @@ public class ExecutiveController {
 		}catch(InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		
 
 	}
 

@@ -59,7 +59,7 @@ public class PatientDoctorController {
 			if (patientDoctor.getTime().isBefore(stime) || patientDoctor.getTime().isAfter(etime)) {
 				throw new InvalidIdException("slot not available");
 			}
-			patientDoctor.setStatus(StatusType.PENDING);
+			patientDoctor.setStatus(StatusType.CANCELLED);
 
 			patientDoctor = patientDoctorService.assignPatientDoctor(patientDoctor);
 			return ResponseEntity.ok().body(patientDoctor);

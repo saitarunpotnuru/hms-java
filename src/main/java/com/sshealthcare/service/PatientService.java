@@ -52,6 +52,11 @@ public class PatientService {
 		patientRepository.deleteById(pid);
 	}
 
+	public Patient getuser(int id) {
+		
+		return patientRepository.getbyused(id);
+	}
+
 }
 
 

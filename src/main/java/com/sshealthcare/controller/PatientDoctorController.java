@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,8 @@ import com.sshealthcare.service.PatientService;
 
 @RestController
 @RequestMapping("/appointment")
+@CrossOrigin(origins = { "http://localhost:3000","http://localhost:3000/doctor/appointment" })
+
 public class PatientDoctorController {
 	@Autowired
 	private PatientDoctorService patientDoctorService;
@@ -95,33 +98,29 @@ public class PatientDoctorController {
 	
 	
 
-	// get appointments by doctorId
-	@GetMapping("/get/{doctorId}")
-	public ResponseEntity<?> getBydid(@PathVariable("doctorId") int doctorId) {
+	
 
-		try {
-			Doctor doctor = doctorService.getBydid(doctorId);
-			return ResponseEntity.ok().body(doctor);
-		} catch (InvalidIdException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
+		// get appointments by doctorId
+				@GetMapping("/get/{did}")
+				public List<PatientDoctor> getAppointmentsByDoctorId(@PathVariable("did") int did) {
+					return patientDoctorService.getAppointmentsByDoctorId(did);
+				}
+				        
+
 	
 	
-	//updating prescription
-	@PutMapping("/Appointment/{pdid}")
+	//updating prescriptions
+	@PutMapping("/{pdid}")
 	public ResponseEntity<?> updateAppointment(@PathVariable ("pdid")int pdid,
 			@RequestBody PatientDoctorDto  patientDoctorDto) {
 		
 		try {
 			PatientDoctor patientDoctor = patientDoctorService.getBypdId(pdid);
-			
+			System.out.println("entered put call");
 			
 			if (patientDoctorDto.getPrescriptionDetails() != null) {
                 patientDoctor.setPrescriptionDetails(patientDoctorDto.getPrescriptionDetails());
             }
-
-            // Update other properties (fee, time, date) if non-null
             if (patientDoctorDto.getFee() != null) {
                 patientDoctor.setFee(patientDoctorDto.getFee());
             }

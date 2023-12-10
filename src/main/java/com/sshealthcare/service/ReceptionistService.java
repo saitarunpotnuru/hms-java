@@ -49,5 +49,10 @@ public class ReceptionistService {
 		
 	}
 
+	public Receptionist getuser(int id) {
+		
+		return receptionistRepository.getByUsed(id);
+	}
+
 
 }

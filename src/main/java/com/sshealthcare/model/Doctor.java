@@ -22,8 +22,37 @@ public class Doctor {
     private LocalDate date ;
     private LocalTime startTime;
     private LocalTime endTime;
+    private String qualification;
+    private double fee;
+    private float rating;
+    
+    
     
 
+
+	public String getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
+	}
+
+	public double getFee() {
+		return fee;
+	}
+
+	public void setFee(double fee) {
+		this.fee = fee;
+	}
+
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
 
 	@OneToOne
     private User user;
@@ -114,10 +143,10 @@ public class Doctor {
 
 	@Override
 	public String toString() {
-		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email
-				+ ", appointmentStatus="  + ", contact=" + contact + ", date=" + date
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", user=" + user + ", department=" + department
-				+ "]";
+		return "Doctor [Id=" + Id + ", name=" + name + ", gender=" + gender + ", email=" + email + ", contact="
+				+ contact + ", date=" + date + ", startTime=" + startTime + ", endTime=" + endTime + ", qualification="
+				+ qualification + ", fee=" + fee + ", rating=" + rating + ", user=" + user + ", department="
+				+ department + "]";
 	}
     
     

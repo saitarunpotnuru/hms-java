@@ -14,20 +14,21 @@ import com.sshealthcare.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		User user =userRepository.findByUsername(username);
+		System.out.println(user);
+		return user;
 	}
-
 	public User insert(User user) {
-		// TODO Auto-generated method stub
+		
 		return userRepository.save(user);
 	}
-	
 
+	
+	
 }

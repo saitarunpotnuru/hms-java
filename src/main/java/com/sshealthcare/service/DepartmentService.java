@@ -38,6 +38,11 @@ public class DepartmentService {
 		return optional.get();
 	}
 
+	public Department getbyname(String department) {
+		
+		return departmentRepository.getbyname(department) ;
+	}
+
 	
 	
 

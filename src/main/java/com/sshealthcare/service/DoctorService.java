@@ -55,11 +55,7 @@ public class DoctorService {
 		return doctorRepository.save(doctor);
 	}
 
-	public void deleteDoctor(Doctor doctor) {
-		doctorRepository.delete(doctor);
-		
-		
-	}
+	
 
 	//get appointments by doctorId
 	public Doctor getBydid(int doctorId) throws InvalidIdException {
@@ -79,6 +75,30 @@ public class DoctorService {
 			}
 			return optional.get();
 		}
+		
+		
+
+		public List<Doctor> getWithName(String name) {
+			// TODO Auto-generated method stub
+			return doctorRepository.findwithname(name);
+		}
+
+		
+		public Doctor getuser(int id) {
+			
+			return doctorRepository.getByUsed(id);
+		}
+		
+		
+		public void deleteDoctor(int id) {
+			doctorRepository.deleteById(id);
+			
+			
+		}
+
+		
+
+	
 
 
 

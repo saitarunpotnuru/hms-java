@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,8 @@ import com.sshealthcare.service.RoomService;
 
 @RestController
 @RequestMapping("/admission")
+@CrossOrigin(origins = {"http://localhost:3000"})
+
 public class AdmissionController {
 
 	@Autowired
@@ -48,14 +51,15 @@ public class AdmissionController {
 	public ResponseEntity<?> assignAdmission(@PathVariable("rid") int rid, @PathVariable("patientId") int patientId,
 			@PathVariable("did") int did, @RequestBody Admission admission) {
 
-		// fetch room object from DB by roomId
 		try {
 			Room room = roomService.getById(rid);
+	       
+
 			 if (room.getType().equalsIgnoreCase("general") && admissionService.getSpecialPatients(rid) > 4  ) {
 				 throw new InvalidIdException("General room not available");
 		        }
 
-		        // Check if the room is of type 'special' and if it already has a patient
+		        
 		        if (room.getType().equalsIgnoreCase("special") && admissionService.getSpecialPatients(rid) > 0) {
 		            throw new InvalidIdException("Special room not available");
 		        	
@@ -64,13 +68,13 @@ public class AdmissionController {
 			// attach room to admission
 			admission.setRoom(room);
 			
-			// fetch patient object from DB by patientId
+			// fetch patient object  by patientId
 			Patient patient = patientService.getone(patientId);
 			
 			// attach patient to admission
 			admission.setPatient(patient);
-			
-			// fetch doctor object from DB by doctorId
+		                                                                                                                                                                                                                                                                                        
+			// fetch doctor object by doctorId
 			Doctor doctor = doctorService.getById(did);
 			
 			// attach doctor to admission
@@ -125,7 +129,20 @@ public class AdmissionController {
 	
 	
 
-	// updating admissions by id
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+/*// updating admissions by id
 	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update
 	public ResponseEntity<?> updateAdmission(@PathVariable("id") int id, @RequestBody Admission newAdmission) {
 		try {
@@ -142,5 +159,4 @@ public class AdmissionController {
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-	}
-}
+	}*/

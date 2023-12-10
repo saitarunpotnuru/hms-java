@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.model.PatientDoctor;
 
 public interface PatientDoctorRepository extends JpaRepository<PatientDoctor, Integer>{
@@ -20,6 +19,12 @@ public interface PatientDoctorRepository extends JpaRepository<PatientDoctor, In
 	
 	@Query("select pd from PatientDoctor pd where pd.patient.id =?1")
 	List<PatientDoctor> getAll(int patientId);
+
+	@Query("select pd from PatientDoctor pd where pd.doctor.id =?1")
+	List<PatientDoctor> findAppointmentsByDoctorId(int did);
+
+
+	
 
 
      

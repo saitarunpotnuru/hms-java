@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sshealthcare.dto.DoctorDto;
 import com.sshealthcare.dto.PatientDoctorDto;
 import com.sshealthcare.enums.RoleType;
 import com.sshealthcare.exception.InvalidIdException;
@@ -32,6 +34,7 @@ import com.sshealthcare.service.UserService;
 
 @RestController
 @RequestMapping("/doctor")
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class DoctorController {
 
 	@Autowired
@@ -40,6 +43,7 @@ public class DoctorController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	
 
 	@Autowired
 	private UserService userService;
@@ -59,35 +63,48 @@ public class DoctorController {
 	
 	
 	// adding doctors with departmentId
-	@PostMapping("/add/{depid}")
+	@PostMapping("/add")
 
-	public ResponseEntity<?> assignDoctor(@PathVariable("depid") int depid, @RequestBody Doctor doctor) {
+	public ResponseEntity<?> assignDoctor( @RequestBody DoctorDto doctor1) {
 
-		try {
-			Department department = departmentService.getOne(depid);
+		Department department = departmentService.getbyname(doctor1.getDepartment());
 
-			doctor.setDepartment(department);
+		User user = doctor1.getUser();
+		String passwordPlain = user.getPassword();
 
-			// save user info in db
-			User user = doctor.getUser();
-			// i am encrypting the password
-			String passwordPlain = user.getPassword();
-
-			String encodedPassword = passwordEncoder.encode(passwordPlain);
-			user.setPassword(encodedPassword);
-
-			user.setRole(RoleType.DOCTOR);
-			user = userService.insert(user);
-			// attach the saved user(in step 1)
-			doctor.setUser(user);
-
-			doctor = doctorService.insert(doctor);
-			return ResponseEntity.ok().body(doctor);
-		} catch (InvalidIdException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-
-		}
+		String encodedPassword = passwordEncoder.encode(passwordPlain);
+		user.setPassword(encodedPassword);
+        
+		user.setRole(RoleType.DOCTOR);
+		user = userService.insert(user);
+		Doctor doctor = new Doctor();
+		 doctor.setUser(user);
+		 doctor.setDepartment(department);
+		 doctor.setName(doctor1.getName());
+		 doctor.setGender(doctor1.getGender());
+		 doctor.setContact(doctor1.getContact());
+		 doctor.setDate(doctor1.getDate());
+		 doctor.setEmail(doctor1.getEmail());
+		 doctor.setStartTime(doctor1.getStartTime());
+		 doctor.setEndTime(doctor1.getEndTime());
+		 doctor.setFee(doctor1.getFee());
+		 doctor.setQualification(doctor1.getQualification());
+		 
+		 
+		 
+		 
+		 
+		doctor = doctorService.insert(doctor);
+		return ResponseEntity.ok().body(doctor);
 	}
+	
+	//get doctors with dep name
+	@GetMapping("/getwithname")
+	public List<Doctor> getWithName(@RequestParam String name) {
+	   
+		return doctorService.getWithName(name);
+	}
+
 	
 	
 	
@@ -188,20 +205,6 @@ public class DoctorController {
 	}
 	
 	
-	
-	
-		
-		
-
-				
-		
-	
-	
-	
-	
-	
-	
-    
   
 	// deleting a Doctor
 	@DeleteMapping("/delete/{id}")
@@ -210,7 +213,7 @@ public class DoctorController {
 		// validate id
 		Doctor doctor = doctorService.getOne(id);
 		// delete
-		doctorService.deleteDoctor(doctor);
+		doctorService.deleteDoctor(id);
 		return ResponseEntity.ok().body("Doctor deleted successfully");
 	}
 

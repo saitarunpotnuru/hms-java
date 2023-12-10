@@ -54,6 +54,16 @@ public class PatientDoctorService {
 		}
 			return optional.get();
 		}
+		
+		
+		public List<PatientDoctor> getAppointmentsByDoctorId(int did) {
+			// TODO Auto-generated method stub
+			return patientDoctorRepository.findAppointmentsByDoctorId(did);
+		}
+		
+		
+//		
+//		
 	
 	
 	

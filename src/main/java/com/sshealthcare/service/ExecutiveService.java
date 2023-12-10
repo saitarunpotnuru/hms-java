@@ -41,6 +41,11 @@ public class ExecutiveService {
 		
 		
 	}
+
+	public Executive getuser(int id) {
+		
+		return executiveRepository.getByUsed(id);
+	}
 	
 	
 

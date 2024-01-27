@@ -68,13 +68,10 @@ public class AdmissionController {
 			// attach room to admission
 			admission.setRoom(room);
 			
-<<<<<<< HEAD
 			// fetch patient object  by patientId
 			Patient patient = patientService.getone(patientId);
-=======
 			// fetch patient object from DB by patientId
-			Patient patient = patientService.getOne(patientId);
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
+
 			
 			// attach patient to admission
 			admission.setPatient(patient);
@@ -120,7 +117,6 @@ public class AdmissionController {
 	}
 
 	
-<<<<<<< HEAD
 }
 
 
@@ -130,27 +126,3 @@ public class AdmissionController {
 
 
 
-
-
-
-/*// updating admissions by id
-=======
-	// updating admissions by id
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
-	@PutMapping("/update/{id}") // :update: which record to update? give me new value for update
-	public ResponseEntity<?> updateAdmission(@PathVariable("id") int id, @RequestBody Admission newAdmission) {
-		try {
-			// validate id
-			Admission Admission = admissionService.getOne(id);
-			if (newAdmission.getDischargeDate() != null)
-				Admission.setDischargeDate(newAdmission.getDischargeDate());
-			if (newAdmission.getStatus() != null)
-				Admission.setStatus(newAdmission.getStatus());
-
-			Admission = admissionService.insertAdmission(Admission);
-			return ResponseEntity.ok().body(Admission);
-
-		} catch (InvalidIdException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}*/

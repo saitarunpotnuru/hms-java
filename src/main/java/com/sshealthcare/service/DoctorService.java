@@ -16,104 +16,82 @@ import com.sshealthcare.repository.DoctorRepository;
 
 @Service
 public class DoctorService {
-	
+
 	@Autowired
 	private DoctorRepository doctorRepository;
 
-	//adding
+	// adding
 	public Doctor insert(Doctor doctor) {
 		return doctorRepository.save(doctor);
 	}
-	
-	//getting all doctors
+
+	// getting all doctors
 	public List<Doctor> getAlldoctors(Pageable pageable) {
 		return doctorRepository.findAll(pageable).getContent();
 	}
-	
-	//getting doctors by Id
-	public Doctor getOne(int id) throws InvalidIdException{
-		Optional<Doctor> optional =  doctorRepository.findById(id);
-		if(!optional.isPresent()){
+
+	// getting doctors by Id
+	public Doctor getOne(int id) throws InvalidIdException {
+		Optional<Doctor> optional = doctorRepository.findById(id);
+		if (!optional.isPresent()) {
 			throw new InvalidIdException("Doctor ID Invalid");
 		}
-		
+
 		return optional.get();
 	}
-	
-	//admissions and billings are getting by doctorId
+
+	// admissions and billings are getting by doctorId
 	public Doctor getById(int did) throws InvalidIdException {
-		Optional<Doctor> optional =  doctorRepository.findById(did);
-		if(!optional.isPresent()){
+		Optional<Doctor> optional = doctorRepository.findById(did);
+		if (!optional.isPresent()) {
 			throw new InvalidIdException("Doctor ID Invalid");
 		}
-		
+
 		return optional.get();
 	}
-	
-	//update Doctors
+
+	// update Doctors
 	public Doctor insertDoctor(Doctor doctor) {
 		return doctorRepository.save(doctor);
 	}
 
-<<<<<<< HEAD
-	
-=======
-	//delete doctor
+	// delete doctor
 	public void deleteDoctor(Doctor doctor) {
 		doctorRepository.delete(doctor);
-		
-		
-	}
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 
-	//get appointments by doctorId
+	}
+
+	// get appointments by doctorId
 	public Doctor getBydid(int doctorId) throws InvalidIdException {
 		Optional<Doctor> optional = doctorRepository.findById(doctorId);
-		if(!optional.isPresent()) {
+		if (!optional.isPresent()) {
 			throw new InvalidIdException("Doctor ID Invalid");
 		}
 		return optional.get();
 	}
-	
-	
-<<<<<<< HEAD
+
 	// get appointment by doctorId
-		public Doctor getByDoctor(int did) throws InvalidIdException {
-			Optional<Doctor> optional = doctorRepository.findById1(did);
-			if(!optional.isPresent()) {
-				throw new InvalidIdException("Doctor ID Invalid");
-			}
-			return optional.get();
+	public Doctor getByDoctor(int did) throws InvalidIdException {
+		Optional<Doctor> optional = doctorRepository.findById1(did);
+		if (!optional.isPresent()) {
+			throw new InvalidIdException("Doctor ID Invalid");
 		}
-		
-		
+		return optional.get();
+	}
 
-		public List<Doctor> getWithName(String name) {
-			// TODO Auto-generated method stub
-			return doctorRepository.findwithname(name);
-		}
+	public List<Doctor> getWithName(String name) {
+		// TODO Auto-generated method stub
+		return doctorRepository.findwithname(name);
+	}
 
-		
-		public Doctor getuser(int id) {
-			
-			return doctorRepository.getByUsed(id);
-		}
-		
-		
-		public void deleteDoctor(int id) {
-			doctorRepository.deleteById(id);
-			
-			
-		}
+	public Doctor getuser(int id) {
 
-		
+		return doctorRepository.getByUsed(id);
+	}
 
-	
+	public void deleteDoctor(int id) {
+		doctorRepository.deleteById(id);
 
+	}
 
-
-=======
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
-	
-	
 }

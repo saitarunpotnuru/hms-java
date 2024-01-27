@@ -60,17 +60,14 @@ public class PatientDoctorService {
 		}
 			return optional.get();
 		}
-<<<<<<< HEAD
+
 		
 		
 		public List<PatientDoctor> getAppointmentsByDoctorId(int did) {
 			// TODO Auto-generated method stub
 			return patientDoctorRepository.findAppointmentsByDoctorId(did);
-		}
-		
-		
-//		
-//		
+		}}
+	
 	
 	
 	
@@ -79,25 +76,5 @@ public class PatientDoctorService {
 
 	
 
-	
-=======
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
-}
-
-	/*public PatientDoctor getBy(int patientId) throws InvalidIdException {
-		Optional<PatientDoctor> optional =  patientDoctorRepository.findBypId(patientId);
-		if(!optional.isPresent()){
-			throw new InvalidIdException("Patient ID Invalid");
-		
-	}
-		return optional.get();
-	
-}
 
 
-//update appointment
-	public PatientDoctor postPatientDoctor(PatientDoctor patientDoctor) {
-		// TODO Auto-generated method stub
-		return patientDoctorRepository.save(patientDoctor);
-	}
-*/

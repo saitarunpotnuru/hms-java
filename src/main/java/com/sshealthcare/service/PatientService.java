@@ -75,16 +75,15 @@ public class PatientService {
 		patientRepository.deleteById(pid);
 	}
 
-<<<<<<< HEAD
+
 	public Patient getuser(int id) {
 		
 		return patientRepository.getbyused(id);
-=======
+	}
 
 	public Patient getOne(int patientId) {
 		// TODO Auto-generated method stub
 		return null;
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 	}
 
 }

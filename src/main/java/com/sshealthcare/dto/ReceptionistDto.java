@@ -37,10 +37,5 @@ public class ReceptionistDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> 53d58a69dfc1498d2144f869c2f9bfca8fefb391
 
 }
